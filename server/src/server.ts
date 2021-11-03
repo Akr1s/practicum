@@ -1,6 +1,7 @@
 import express, { Application } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import appRouter from './routes';
 
 dotenv.config();
 const app: Application = express();
@@ -12,8 +13,6 @@ app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 
-app.get('/api', (req, res) => {
-    res.send('Api works');
-});
+app.use('/api/', appRouter);
 
 app.listen(port);

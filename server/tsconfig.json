@@ -3,11 +3,10 @@
         "target": "ES5",
         "rootDir": "./src",
         "outDir": "./build",
-        "module": "ES6",
+        "module": "CommonJS",
+        "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "strict": true,
-        "removeComments": true,
-        "allowSyntheticDefaultImports": true,
-        "moduleResolution": "Node"
+        "skipLibCheck": true
     }
 }
