@@ -1,0 +1,102 @@
+header {
+    background-color: var(--white-color, 'white');
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+.menu-icon,
+.avatar-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.sidebar {
+    position: absolute;
+    left: -100vw;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    transition: left 0.5s;
+    z-index: 10;
+}
+.sidebar.open {
+    left: 0px;
+}
+.sidebar-content {
+    width: 280px;
+    background-color: var(--white-color, 'white');
+    height: 100%;
+    padding: 20px 0px;
+    box-shadow: 0 0 16px rgb(0 0 0 / 28%);
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.school-icon {
+    font-size: 32px;
+}
+
+.menu-separator {
+    border-top: 1px solid #e3e3e3;
+    margin: 12px 0 12px 0;
+    width: 100%;
+}
+
+.subjects-list {
+    width: 100%;
+    padding: 0px 10px;
+}
+
+.subject {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 10px;
+    font-size: 18px;
+}
+
+.subject:hover {
+    border-radius: 10px;
+    background-color: var(--gray-color, 'gray');
+}
+
+.subject_name {
+    text-decoration: none;
+    color: var(--dark-gray-color, 'dimgray');
+}
+
+.subject_icons {
+    display: flex;
+    align-items: center;
+}
+
+.subject_icons .icon {
+    cursor: pointer;
+}
+
+.subject_icons .icon:hover {
+    transform: scale(1.2);
+}
+
+.subject_icons .icon:not(:last-of-type) {
+    margin-right: 8px;
+}
+
+.create-subject {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 10px;
+    font-size: 20px;
+    cursor: pointer;
+}
+.create-subject .icon:hover {
+    transform: scale(1.2);
+}
+
+.create-subject:hover {
+    border-radius: 10px;
+    background-color: var(--gray-color, 'gray');
+}
