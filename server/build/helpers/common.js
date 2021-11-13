@@ -64,22 +64,23 @@ var getDataFromDatabase = function (options, res) { return __awaiter(void 0, voi
 }); };
 exports.getDataFromDatabase = getDataFromDatabase;
 var handleDatabaseQuery = function (options, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var query, successCode, errorCode, successStatusCode, errorStatusCode, error_2;
+    var query, successStatusCode, errorStatusCode, rows, error_2;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                query = options.query, successCode = options.successCode, errorCode = options.errorCode, successStatusCode = options.successStatusCode, errorStatusCode = options.errorStatusCode;
+                query = options.query, successStatusCode = options.successStatusCode, errorStatusCode = options.errorStatusCode;
                 _a.label = 1;
             case 1:
                 _a.trys.push([1, 3, , 4]);
                 return [4 /*yield*/, (0, database_1.databaseQuery)(query)];
             case 2:
-                _a.sent();
-                res.status(successStatusCode).send(String(successCode));
+                rows = (_a.sent()).rows;
+                res.status(successStatusCode).send(rows);
                 return [3 /*break*/, 4];
             case 3:
                 error_2 = _a.sent();
-                res.status(errorStatusCode).send(String(errorCode));
+                console.log('error', error_2);
+                res.status(errorStatusCode).send(error_2);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }

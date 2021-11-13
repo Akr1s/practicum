@@ -16,12 +16,13 @@ const getDataFromDatabase = async (options: GetOptionsInterface, res: Response) 
 };
 
 const handleDatabaseQuery = async (options: OptionsInterface, res: Response) => {
-    const { query, successCode, errorCode, successStatusCode, errorStatusCode } = options;
+    const { query, successStatusCode, errorStatusCode } = options;
     try {
-        await databaseQuery(query);
-        res.status(successStatusCode).send(String(successCode));
+        const { rows } = await databaseQuery(query);
+        res.status(successStatusCode).send(rows);
     } catch (error: any) {
-        res.status(errorStatusCode).send(String(errorCode));
+        console.log('error', error);
+        res.status(errorStatusCode).send(error);
     }
 };
 

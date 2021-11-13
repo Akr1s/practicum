@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import appRouter from './routes';
 
 dotenv.config();
+
 const app: Application = express();
 
 const environmentPort: number = Number(process.env.PORT);
