@@ -4,9 +4,10 @@ import { getDataFromDatabase, handleDatabaseQuery } from '../helpers/common';
 import { v4 as uuidv4 } from 'uuid';
 import convertDate from '../utils/convertDate';
 
-const getAllSubjects = (req: Request, res: Response) => {
+const getAllLaboratories = (req: Request, res: Response) => {
+    const { id } = req.params;
     const options = {
-        query: 'SELECT * FROM LESSONS ORDER BY CREATED_DATE ASC',
+        query: `SELECT * FROM LABORATORIES WHERE LESSON_ID='${id}' ORDER BY CREATED_DATE ASC`,
         errorCode: STATUS_CODES.ERROR,
         single: false,
     };
@@ -14,38 +15,40 @@ const getAllSubjects = (req: Request, res: Response) => {
     getDataFromDatabase(options, res);
 };
 
-const createSubject = (req: Request, res: Response) => {
-    let { name } = req.body;
+const createLaboratory = (req: Request, res: Response) => {
+    let { name, data, lessonId } = req.body;
     const id = uuidv4();
     const options = {
-        query: `INSERT INTO LESSONS(ID,NAME,CREATED_DATE) VALUES ('${id}','${name}', '${convertDate(
-            new Date(),
-        )}') RETURNING *`,
+        query: `INSERT INTO LABORATORIES(ID,NAME, LESSON_ID, DATA, CREATED_DATE) VALUES ('${id}','${name}', '${lessonId}', '${JSON.stringify(
+            data,
+        )}', '${convertDate(new Date())}') RETURNING *`,
         successStatusCode: STATUS_CODES.CREATED,
         errorStatusCode: STATUS_CODES.ERROR,
     };
     handleDatabaseQuery(options, res);
 };
 
-const updateSubject = (req: Request, res: Response) => {
+const updateLaboratory = (req: Request, res: Response) => {
     const { id } = req.params;
-    let { name } = req.body;
+    let { name, data } = req.body;
     const options = {
-        query: `UPDATE LESSONS SET NAME='${name}' WHERE ID='${id}' RETURNING *`,
+        query: `UPDATE LABORATORIES SET NAME='${name}', DATA='${JSON.stringify(
+            data,
+        )}' WHERE ID='${id}' RETURNING *`,
         successStatusCode: STATUS_CODES.OK,
         errorStatusCode: STATUS_CODES.ERROR,
     };
     handleDatabaseQuery(options, res);
 };
 
-const deleteSubject = (req: Request, res: Response) => {
+const deleteLaboratory = (req: Request, res: Response) => {
     const { id } = req.params;
     const options = {
-        query: `DELETE FROM LESSONS WHERE ID='${id}' RETURNING *`,
+        query: `DELETE FROM LABORATORIES WHERE ID='${id}' RETURNING *`,
         successStatusCode: STATUS_CODES.OK,
         errorStatusCode: STATUS_CODES.ERROR,
     };
     handleDatabaseQuery(options, res);
 };
 
-export default { getAllSubjects, createSubject, updateSubject, deleteSubject };
+export default { getAllLaboratories, createLaboratory, updateLaboratory, deleteLaboratory };

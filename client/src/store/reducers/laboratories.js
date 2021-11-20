@@ -2,17 +2,17 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = [];
 
-export const subjectsSlice = createSlice({
-    name: 'subjects',
+export const laboratoriesSlice = createSlice({
+    name: 'laboratories',
     initialState,
     reducers: {
-        setSubjects: (_, action) => {
+        setLaboratories: (_, action) => {
             return [...action.payload];
         },
-        createSubject: (state, action) => {
+        createLaboratory: (state, action) => {
             return [...state, action.payload];
         },
-        updateSubject: (state, action) => {
+        updateLaboratory: (state, action) => {
             return state.map((subject) => {
                 if (subject.id === action.payload.id) {
                     return action.payload;
@@ -20,7 +20,7 @@ export const subjectsSlice = createSlice({
                 return subject;
             });
         },
-        deleteSubject: (state, action) => {
+        deleteLaboratory: (state, action) => {
             return state.filter((subject) => {
                 return subject.id !== action.payload;
             });
@@ -28,6 +28,7 @@ export const subjectsSlice = createSlice({
     },
 });
 
-export const { setSubjects, createSubject, updateSubject, deleteSubject } = subjectsSlice.actions;
+export const { setLaboratories, createLaboratory, updateLaboratory, deleteLaboratory } =
+    laboratoriesSlice.actions;
 
-export default subjectsSlice.reducer;
+export default laboratoriesSlice.reducer;

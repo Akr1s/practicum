@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     subjectsLoading: false,
+    laboratoriesLoading: false,
 };
 
 export const loadingsSlice = createSlice({
@@ -9,12 +10,14 @@ export const loadingsSlice = createSlice({
     initialState,
     reducers: {
         setSubjectsLoading: (state, action) => {
-            console.log('action', action);
             return { ...state, subjectsLoading: action.payload };
+        },
+        setLaboratoriesLoading: (state, action) => {
+            return { ...state, laboratoriesLoading: action.payload };
         },
     },
 });
 
-export const { setSubjectsLoading } = loadingsSlice.actions;
+export const { setSubjectsLoading, setLaboratoriesLoading } = loadingsSlice.actions;
 
 export default loadingsSlice.reducer;

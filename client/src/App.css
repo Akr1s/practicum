@@ -1,7 +1,10 @@
 :root {
     --white-color: #ffffff;
-    --gray-color: #f1f3f4;
+    --gray-color: #e3e8eb;
+    --light-gray-color: #f1f3f4;
     --dark-gray-color: #3c4043;
+    --light-blue-color: #0a95ff;
+    --black-color: #000;
 }
 
 * {
@@ -15,8 +18,71 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     background-color: var(--gray-color, 'gray');
+    min-height: 100vh;
+}
+
+.app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100 vh;
+}
+
+.root {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.page {
+    flex-grow: 1;
 }
 
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button {
+    min-width: 150px;
+    padding: 10px;
+    background-color: var(---light-blue-color, blue);
+    color: var(----white-color, white);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-cancel {
+    background-color: var(--white-color, gray);
+    color: var(----black-color, black);
+}
+
+.backdrop {
+    display: inline-block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 20;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal {
+    width: 30%;
+    height: 30%;
+    min-width: 300px;
+    min-height: 250px;
+    background-color: var(----gray-color, gray);
+    border-radius: 5px;
+    color: var(----white-color, white);
 }

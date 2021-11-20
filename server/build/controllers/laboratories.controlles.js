@@ -7,41 +7,42 @@ var statusCodes_1 = require("../constants/statusCodes");
 var common_1 = require("../helpers/common");
 var uuid_1 = require("uuid");
 var convertDate_1 = __importDefault(require("../utils/convertDate"));
-var getAllSubjects = function (req, res) {
+var getAllLaboratories = function (req, res) {
+    var id = req.params.id;
     var options = {
-        query: 'SELECT * FROM LESSONS ORDER BY CREATED_DATE ASC',
+        query: "SELECT * FROM LABORATORIES WHERE LESSON_ID='" + id + "' ORDER BY CREATED_DATE ASC",
         errorCode: statusCodes_1.STATUS_CODES.ERROR,
         single: false,
     };
     (0, common_1.getDataFromDatabase)(options, res);
 };
-var createSubject = function (req, res) {
-    var name = req.body.name;
+var createLaboratory = function (req, res) {
+    var _a = req.body, name = _a.name, data = _a.data, lessonId = _a.lessonId;
     var id = (0, uuid_1.v4)();
     var options = {
-        query: "INSERT INTO LESSONS(ID,NAME,CREATED_DATE) VALUES ('" + id + "','" + name + "', '" + (0, convertDate_1.default)(new Date()) + "') RETURNING *",
+        query: "INSERT INTO LABORATORIES(ID,NAME, LESSON_ID, DATA, CREATED_DATE) VALUES ('" + id + "','" + name + "', '" + lessonId + "', '" + JSON.stringify(data) + "', '" + (0, convertDate_1.default)(new Date()) + "') RETURNING *",
         successStatusCode: statusCodes_1.STATUS_CODES.CREATED,
         errorStatusCode: statusCodes_1.STATUS_CODES.ERROR,
     };
     (0, common_1.handleDatabaseQuery)(options, res);
 };
-var updateSubject = function (req, res) {
+var updateLaboratory = function (req, res) {
     var id = req.params.id;
-    var name = req.body.name;
+    var _a = req.body, name = _a.name, data = _a.data;
     var options = {
-        query: "UPDATE LESSONS SET NAME='" + name + "' WHERE ID='" + id + "' RETURNING *",
+        query: "UPDATE LABORATORIES SET NAME='" + name + "', DATA='" + JSON.stringify(data) + "' WHERE ID='" + id + "' RETURNING *",
         successStatusCode: statusCodes_1.STATUS_CODES.OK,
         errorStatusCode: statusCodes_1.STATUS_CODES.ERROR,
     };
     (0, common_1.handleDatabaseQuery)(options, res);
 };
-var deleteSubject = function (req, res) {
+var deleteLaboratory = function (req, res) {
     var id = req.params.id;
     var options = {
-        query: "DELETE FROM LESSONS WHERE ID='" + id + "' RETURNING *",
+        query: "DELETE FROM LABORATORIES WHERE ID='" + id + "' RETURNING *",
         successStatusCode: statusCodes_1.STATUS_CODES.OK,
         errorStatusCode: statusCodes_1.STATUS_CODES.ERROR,
     };
     (0, common_1.handleDatabaseQuery)(options, res);
 };
-exports.default = { getAllSubjects: getAllSubjects, createSubject: createSubject, updateSubject: updateSubject, deleteSubject: deleteSubject };
+exports.default = { getAllLaboratories: getAllLaboratories, createLaboratory: createLaboratory, updateLaboratory: updateLaboratory, deleteLaboratory: deleteLaboratory };

@@ -1,0 +1,15 @@
+.update-subject-modal form {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.subject-name-input {
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    font-size: 20px;
+}

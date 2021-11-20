@@ -1,0 +1,28 @@
+.laboratories-list {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.laboratory-item {
+    min-width: 120px;
+    min-height: 150px;
+    background-color: var(--white-color, white);
+    border-radius: 4px;
+}
+
+.laboratory-create {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.create-laboratory-icon {
+    font-size: 50px;
+    cursor: pointer;
+}
+.create-laboratory-icon:hover {
+    transform: scale(1.2);
+}

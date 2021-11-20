@@ -57,9 +57,14 @@ header {
     font-size: 18px;
 }
 
-.subject:hover {
+.subject.active {
     border-radius: 10px;
     background-color: var(--gray-color, 'gray');
+}
+
+.subject:hover {
+    border-radius: 10px;
+    background-color: var(--light-gray-color, 'gray');
 }
 
 .subject_name {
@@ -92,7 +97,7 @@ header {
     font-size: 20px;
     cursor: pointer;
 }
-.create-subject .icon:hover {
+.create-subject:hover .icon {
     transform: scale(1.2);
 }
 
