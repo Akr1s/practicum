@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Header from './components/Header/Header';
-import CreateLaboratory from './pages/CreateLaboratory/CreateLaboratory';
-import Home from './pages/Home/Home';
-import Laborataries from './pages/Laboratories/Laboratories';
-import ViewLaboratory from './pages/ViewLaboratory/ViewLaboratory';
+import Header from './components/Header';
+import CreateLaboratory from './pages/CreateLaboratory';
+import Home from './pages/Home';
+import Laborataries from './pages/Laboratories';
+import ViewLaboratory from './pages/ViewLaboratory';
 
 function App() {
     return (

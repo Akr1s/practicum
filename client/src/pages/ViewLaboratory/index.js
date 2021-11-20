@@ -6,7 +6,7 @@ function ViewLaboratory() {
     const laboratory = useSelector((state) => state.navigation.laboratory);
 
     if (!laboratory) return <Navigate to="/" />;
-    return <div>{laboratory.name}</div>;
+    return <section className="page">{laboratory.name}</section>;
 }
 
 export default ViewLaboratory;
