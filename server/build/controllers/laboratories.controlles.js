@@ -28,9 +28,9 @@ var createLaboratory = function (req, res) {
 };
 var updateLaboratory = function (req, res) {
     var id = req.params.id;
-    var _a = req.body, name = _a.name, data = _a.data;
+    var _a = req.body, name = _a.name, data = _a.data, lessonId = _a.lessonId;
     var options = {
-        query: "UPDATE LABORATORIES SET NAME='" + name + "', DATA='" + JSON.stringify(data) + "' WHERE ID='" + id + "' RETURNING *",
+        query: "UPDATE LABORATORIES SET NAME='" + name + "', LESSON_ID='" + lessonId + "', DATA='" + JSON.stringify(data) + "' WHERE ID='" + id + "' RETURNING *",
         successStatusCode: statusCodes_1.STATUS_CODES.OK,
         errorStatusCode: statusCodes_1.STATUS_CODES.ERROR,
     };

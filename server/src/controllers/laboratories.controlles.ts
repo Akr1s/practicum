@@ -30,9 +30,9 @@ const createLaboratory = (req: Request, res: Response) => {
 
 const updateLaboratory = (req: Request, res: Response) => {
     const { id } = req.params;
-    let { name, data } = req.body;
+    let { name, data, lessonId } = req.body;
     const options = {
-        query: `UPDATE LABORATORIES SET NAME='${name}', DATA='${JSON.stringify(
+        query: `UPDATE LABORATORIES SET NAME='${name}', LESSON_ID='${lessonId}', DATA='${JSON.stringify(
             data,
         )}' WHERE ID='${id}' RETURNING *`,
         successStatusCode: STATUS_CODES.OK,

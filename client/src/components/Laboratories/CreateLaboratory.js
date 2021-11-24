@@ -6,11 +6,11 @@ import { useLocation } from 'react-router-dom';
 function CreateLaboratory() {
     const { pathname } = useLocation();
     return (
-        <article className="laboratory-item laboratory-create">
-            <Link to={`${pathname}/create`}>
-                <IoAdd className="create-laboratory-icon" title="Create" />
-            </Link>
-        </article>
+        <Link to={`${pathname}/create`}>
+            <article className="laboratory-item create-laboratory" title="Create">
+                <IoAdd className="create-laboratory-icon" />
+            </article>
+        </Link>
     );
 }
 

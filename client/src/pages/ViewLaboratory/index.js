@@ -6,7 +6,16 @@ function ViewLaboratory() {
     const laboratory = useSelector((state) => state.navigation.laboratory);
 
     if (!laboratory) return <Navigate to="/" />;
-    return <section className="page">{laboratory.name}</section>;
+    return (
+        <section className="page">
+            {laboratory.name}
+            {laboratory.data.blocks.map((block) => (
+                <p>
+                    {block.type} : {block.data.text}
+                </p>
+            ))}
+        </section>
+    );
 }
 
 export default ViewLaboratory;
