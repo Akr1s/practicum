@@ -6,6 +6,7 @@ import Subject from './Subject';
 import { setSubjectsLoading } from '../../store/reducers/loadings';
 import { setSubjects } from '../../store/reducers/subjects';
 import CreateSubjectIcon from './CreateSubjectIcon';
+import Box from '@mui/material/Box';
 
 function SubjectsList() {
     const [isCreating, setIsCreating] = useState(false);
@@ -29,10 +30,9 @@ function SubjectsList() {
     if (loading) return <div className="subjects-list">Loading</div>;
 
     return (
-        <div className="subjects-list">
+        <Box className="subjects-list">
             <CreateSubjectIcon
                 handleCreate={(e) => {
-                    e.stopPropagation();
                     setIsCreating(true);
                 }}
             />
@@ -46,7 +46,7 @@ function SubjectsList() {
                 );
             })}
             {isCreating && <CreateSubject closeModal={() => setIsCreating(false)} />}
-        </div>
+        </Box>
     );
 }
 

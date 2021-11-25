@@ -8,6 +8,7 @@ import { SUBJECTS_URL } from '../../constants/fetch';
 import { useDispatch } from 'react-redux';
 import { deleteSubject } from '../../store/reducers/subjects';
 import { setSubject } from '../../store/reducers/navigation';
+import Box from '@mui/material/Box';
 
 function Subject(props) {
     const { subject, isActive } = props;
@@ -32,26 +33,24 @@ function Subject(props) {
     };
 
     return (
-        <div className={`subject ${isActive ? 'active' : ''}`}>
+        <Box className={`subject ${isActive ? 'active' : ''}`}>
             <Link className="subject_name" to={`/${link}`} onClick={setNavigationSubject}>
                 {name}
             </Link>
-            <div className="subject_icons">
+            <Box className="subject_icons">
                 <IoPencil
                     className="icon"
-                    onClick={(e) => {
-                        e.stopPropagation();
+                    onClick={() => {
                         setIsUpdating(true);
                     }}
                 />
                 <IoTrash
                     className="icon"
-                    onClick={(e) => {
-                        e.stopPropagation();
+                    onClick={() => {
                         setIsDeleting(true);
                     }}
                 />
-            </div>
+            </Box>
             {isUpdating && (
                 <UpdateSubject subject={subject} closeModal={() => setIsUpdating(false)} />
             )}
@@ -64,7 +63,7 @@ function Subject(props) {
                     handleClose={() => setIsDeleting(false)}
                 />
             )}
-        </div>
+        </Box>
     );
 }
 

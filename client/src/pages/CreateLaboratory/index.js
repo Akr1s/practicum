@@ -5,6 +5,7 @@ import { LABORATORIES_URL } from '../../constants/fetch';
 import { createLaboratory } from '../../store/reducers/laboratories';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './CreateLaboratory.css';
+import Box from '@mui/system/Box';
 
 function CreateLaboratory() {
     const subjects = useSelector((state) => state.subjects);
@@ -41,7 +42,7 @@ function CreateLaboratory() {
     };
 
     return (
-        <section className="page create-laboratory-page">
+        <Box component="section" className="page create-laboratory-page">
             <form>
                 <label htmlFor="laboratory-name">Laboratory name</label>
                 <input
@@ -67,7 +68,7 @@ function CreateLaboratory() {
                 </button>
             </form>
             <ReactEditor editorRef={editorRef} defaultData={[]} />
-        </section>
+        </Box>
     );
 }
 
