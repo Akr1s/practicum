@@ -23,7 +23,7 @@ function EditLaboratory() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const savedData = await editorRef.current.instance.save();
+        const savedData = await editorRef.current.save();
 
         const updateSubjectCall = async () => {
             const response = await fetch(`${LABORATORIES_URL}/${laboratory.id}`, {
