@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
+import { componentSelector } from './componentSelector';
 import './ViewLaboratory.css';
 
 function ViewLaboratory() {
@@ -11,11 +12,7 @@ function ViewLaboratory() {
         <section className="page">
             <h2 className="view-page-title">{laboratory.name}</h2>
 
-            {laboratory.data.blocks.map((block) => (
-                <p>
-                    {block.type} : {block.data.text}
-                </p>
-            ))}
+            {laboratory.data.blocks.map((block) => componentSelector(block))}
         </section>
     );
 }
