@@ -6,6 +6,7 @@ import { createLaboratory } from '../../store/reducers/laboratories';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './CreateLaboratory.css';
 import Box from '@mui/system/Box';
+import { Button, MenuItem, Select, TextField } from '@mui/material';
 
 function CreateLaboratory() {
     const subjects = useSelector((state) => state.subjects);
@@ -44,28 +45,28 @@ function CreateLaboratory() {
     return (
         <Box component="section" className="page create-laboratory-page">
             <form>
-                <label htmlFor="laboratory-name">Laboratory name</label>
-                <input
-                    type="text"
+                <TextField
                     id="laboratory-name"
-                    className="subject-name-input"
+                    label="Laboratory name"
+                    variant="filled"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-                <label htmlFor="subject_id">Subject name</label>
-                <select
-                    name="subject_id"
+                <Select
                     id="subject_id"
+                    label="Subject name"
                     value={subjectId}
+                    variant="filled"
                     onChange={(e) => setSubjectId(e.target.value)}
                 >
                     {subjects.map((subject) => (
-                        <option value={subject.id}>{subject.name}</option>
+                        <MenuItem value={subject.id}>{subject.name}</MenuItem>
                     ))}
-                </select>
-                <button className="button" type="submit" onClick={handleSubmit}>
+                </Select>
+
+                <Button variant="contained" type="submit" onClick={handleSubmit}>
                     Create laboratory
-                </button>
+                </Button>
             </form>
             <ReactEditor editorRef={editorRef} defaultData={[]} />
         </Box>

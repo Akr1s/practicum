@@ -9,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { deleteSubject } from '../../store/reducers/subjects';
 import { setSubject } from '../../store/reducers/navigation';
 import Box from '@mui/material/Box';
+import { Card } from '@mui/material';
 
 function Subject(props) {
     const { subject, isActive } = props;
@@ -33,7 +34,7 @@ function Subject(props) {
     };
 
     return (
-        <Box className={`subject ${isActive ? 'active' : ''}`}>
+        <Card className={`subject ${isActive ? 'active' : ''}`} sx={{ marginTop: '10px' }}>
             <Link className="subject_name" to={`/${link}`} onClick={setNavigationSubject}>
                 {name}
             </Link>
@@ -63,7 +64,7 @@ function Subject(props) {
                     handleClose={() => setIsDeleting(false)}
                 />
             )}
-        </Box>
+        </Card>
     );
 }
 

@@ -1,8 +1,15 @@
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogTitle,
+    TextField,
+} from '@mui/material';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { SUBJECTS_URL } from '../../../constants/fetch';
 import { createSubject } from '../../../store/reducers/subjects';
-import './CreateSubject.css';
 
 function CreateSubject(props) {
     const { closeModal } = props;
@@ -29,29 +36,27 @@ function CreateSubject(props) {
     };
 
     return (
-        <div
-            className="backdrop"
-            onClick={(e) => {
-                e.stopPropagation();
-                closeModal();
-            }}
-        >
-            <div className="create-subject-modal modal" onClick={(e) => e.stopPropagation()}>
-                <form>
-                    <label htmlFor="subject-name">Subject name</label>
-                    <input
-                        type="text"
-                        id="subject-name"
-                        className="subject-name-input"
-                        value={nameValue}
-                        onChange={(e) => setNameValue(e.target.value)}
-                    />
-                    <button className="button" type="submit" onClick={handleSubmit}>
-                        Create subject
-                    </button>
-                </form>
-            </div>
-        </div>
+        <Dialog open={true} onClose={closeModal}>
+            <DialogTitle>Create Subject</DialogTitle>
+            <DialogContent>
+                <TextField
+                    id="subject-name"
+                    label="Subject name"
+                    variant="filled"
+                    required
+                    value={nameValue}
+                    onChange={(e) => setNameValue(e.target.value)}
+                />
+            </DialogContent>
+            <DialogActions>
+                <Button variant="contained" color="error" onClick={closeModal}>
+                    Cancel
+                </Button>
+                <Button variant="contained" onClick={handleSubmit}>
+                    Update
+                </Button>
+            </DialogActions>
+        </Dialog>
     );
 }
 

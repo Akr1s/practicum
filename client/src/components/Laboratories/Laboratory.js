@@ -1,3 +1,5 @@
+import { Card } from '@mui/material';
+import { Box } from '@mui/system';
 import React from 'react';
 import { IoPencil, IoTrash } from 'react-icons/io5';
 import { useDispatch } from 'react-redux';
@@ -31,8 +33,8 @@ function Laboratory(props) {
             onClick={setNavigationLaboratory}
             className="laboratory-link"
         >
-            <article className="laboratory-item">{laboratory.name}</article>
-            <div className="laboratory_icons">
+            <Card className="laboratory-item">{laboratory.name}</Card>
+            <Box className="laboratory_icons">
                 <Link to={`${pathname}/${replaceSpaces(laboratory.name)}/edit`}>
                     <IoPencil
                         className="icon"
@@ -49,7 +51,7 @@ function Laboratory(props) {
                         deleteLaboratoryHandler();
                     }}
                 />
-            </div>
+            </Box>
         </Link>
     );
 }
