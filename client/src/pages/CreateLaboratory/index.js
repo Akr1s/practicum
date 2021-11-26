@@ -50,13 +50,17 @@ function CreateLaboratory() {
                     label="Laboratory name"
                     variant="filled"
                     value={name}
+                    required
                     onChange={(e) => setName(e.target.value)}
+                    error={!name}
+                    helperText={!name ? 'Field is required' : ''}
                 />
                 <Select
                     id="subject_id"
                     label="Subject name"
                     value={subjectId}
                     variant="filled"
+                    required
                     onChange={(e) => setSubjectId(e.target.value)}
                 >
                     {subjects.map((subject) => (
@@ -64,7 +68,7 @@ function CreateLaboratory() {
                     ))}
                 </Select>
 
-                <Button variant="contained" type="submit" onClick={handleSubmit}>
+                <Button variant="contained" type="submit" disabled={!name} onClick={handleSubmit}>
                     Create laboratory
                 </Button>
             </form>

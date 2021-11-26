@@ -6,6 +6,7 @@ import { updateLaboratory } from '../../store/reducers/laboratories';
 import { useNavigate, useLocation } from 'react-router-dom';
 import './EditLaboratory.css';
 import Box from '@mui/system/Box';
+import { Button, MenuItem, Select, TextField } from '@mui/material';
 
 function EditLaboratory() {
     const subjects = useSelector((state) => state.subjects);
@@ -44,28 +45,32 @@ function EditLaboratory() {
     return (
         <Box component="section" className="page update-laboratory-page">
             <form>
-                <label htmlFor="laboratory-name">Laboratory name</label>
-                <input
-                    type="text"
+                <TextField
                     id="laboratory-name"
-                    className="subject-name-input"
+                    label="Laboratory name"
+                    variant="filled"
                     value={name}
+                    required
                     onChange={(e) => setName(e.target.value)}
+                    error={!name}
+                    helperText={!name ? 'Field is required' : ''}
                 />
-                <label htmlFor="subject_id">Subject name</label>
-                <select
-                    name="subject_id"
+                <Select
                     id="subject_id"
+                    label="Subject name"
                     value={subjectId}
+                    variant="filled"
+                    required
                     onChange={(e) => setSubjectId(e.target.value)}
                 >
                     {subjects.map((subject) => (
-                        <option value={subject.id}>{subject.name}</option>
+                        <MenuItem value={subject.id}>{subject.name}</MenuItem>
                     ))}
-                </select>
-                <button className="button" type="submit" onClick={handleSubmit}>
+                </Select>
+
+                <Button variant="contained" disabled={!name} type="submit" onClick={handleSubmit}>
                     Update laboratory
-                </button>
+                </Button>
             </form>
             <ReactEditor editorRef={editorRef} defaultData={laboratory?.data} />
         </Box>

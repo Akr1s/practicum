@@ -46,13 +46,15 @@ function CreateSubject(props) {
                     required
                     value={nameValue}
                     onChange={(e) => setNameValue(e.target.value)}
+                    error={!nameValue}
+                    helperText={!nameValue ? 'Field is required' : ''}
                 />
             </DialogContent>
             <DialogActions>
                 <Button variant="contained" color="error" onClick={closeModal}>
                     Cancel
                 </Button>
-                <Button variant="contained" onClick={handleSubmit}>
+                <Button variant="contained" disabled={!nameValue} onClick={handleSubmit}>
                     Update
                 </Button>
             </DialogActions>
