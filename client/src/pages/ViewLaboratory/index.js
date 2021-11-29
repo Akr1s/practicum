@@ -16,7 +16,7 @@ function ViewLaboratory() {
                 {laboratory.name}
             </Typography>
 
-            {laboratory.data.blocks.map((block) => componentSelector(block))}
+            {laboratory.data.blocks.map((block, index) => componentSelector(block, index))}
         </Box>
     );
 }
