@@ -36,9 +36,9 @@ function CreateLaboratory() {
                 },
                 body: JSON.stringify({ name, data: savedData, lessonId: subjectId }),
             });
-            const [laboratory] = await response.json();
-            dispatch(createLaboratory(laboratory));
-            enqueueSnackbar(`${laboratory.name} was created!`, { variant: 'success' });
+            const [laboratoryItem] = await response.json();
+            dispatch(createLaboratory(laboratoryItem));
+            enqueueSnackbar(`${laboratoryItem.name} was created!`, { variant: 'success' });
         };
 
         createLaboratoryCall();

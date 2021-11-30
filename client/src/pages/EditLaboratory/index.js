@@ -37,9 +37,9 @@ function EditLaboratory() {
                 },
                 body: JSON.stringify({ name, data: savedData, lessonId: subjectId }),
             });
-            const [laboratory] = await response.json();
-            dispatch(updateLaboratory(laboratory));
-            enqueueSnackbar(`${laboratory.name} was updated!`, { variant: 'info' });
+            const [laboratoryItem] = await response.json();
+            dispatch(updateLaboratory(laboratoryItem));
+            enqueueSnackbar(`${laboratoryItem.name} was updated!`, { variant: 'info' });
         };
 
         updateLaboratoryCall();
