@@ -10,12 +10,14 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { SUBJECTS_URL } from '../../../constants/fetch';
 import { createSubject } from '../../../store/reducers/subjects';
+import { useSnackbar } from 'notistack';
 
 function CreateSubject(props) {
     const { closeModal } = props;
 
     const [nameValue, setNameValue] = useState('');
     const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleSubmit = (e) => {
         const createSubjectCall = async () => {
@@ -26,9 +28,10 @@ function CreateSubject(props) {
                 },
                 body: JSON.stringify({ name: nameValue }),
             });
-            const subjects = await response.json();
-            dispatch(createSubject(subjects[0]));
+            const [subject] = await response.json();
+            dispatch(createSubject(subject));
             closeModal();
+            enqueueSnackbar(`The subject ${subject.name} was created!`, { variant: 'success' });
         };
 
         e.preventDefault();
@@ -55,7 +58,7 @@ function CreateSubject(props) {
                     Cancel
                 </Button>
                 <Button variant="contained" disabled={!nameValue} onClick={handleSubmit}>
-                    Update
+                    Create
                 </Button>
             </DialogActions>
         </Dialog>

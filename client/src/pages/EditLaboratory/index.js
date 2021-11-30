@@ -7,6 +7,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './EditLaboratory.css';
 import Box from '@mui/system/Box';
 import { Button, MenuItem, Select, TextField } from '@mui/material';
+import { useSnackbar } from 'notistack';
 
 function EditLaboratory() {
     const subjects = useSelector((state) => state.subjects);
@@ -17,6 +18,7 @@ function EditLaboratory() {
     const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
 
     const navigateToSubject = () => {
         const subjectName = location.pathname.split('/')[1];
@@ -27,7 +29,7 @@ function EditLaboratory() {
         e.preventDefault();
         const savedData = await editorRef.current.save();
 
-        const updateSubjectCall = async () => {
+        const updateLaboratoryCall = async () => {
             const response = await fetch(`${LABORATORIES_URL}/${laboratory.id}`, {
                 method: 'PUT',
                 headers: {
@@ -35,11 +37,12 @@ function EditLaboratory() {
                 },
                 body: JSON.stringify({ name, data: savedData, lessonId: subjectId }),
             });
-            const subjects = await response.json();
-            dispatch(updateLaboratory(subjects[0]));
+            const [laboratory] = await response.json();
+            dispatch(updateLaboratory(laboratory));
+            enqueueSnackbar(`${laboratory.name} was updated!`, { variant: 'info' });
         };
 
-        updateSubjectCall();
+        updateLaboratoryCall();
         navigateToSubject();
     };
     return (

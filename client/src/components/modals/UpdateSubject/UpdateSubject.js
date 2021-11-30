@@ -6,8 +6,10 @@ import {
     DialogTitle,
     TextField,
 } from '@mui/material';
+import { useSnackbar } from 'notistack';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { SUBJECTS_URL } from '../../../constants/fetch';
 import { updateSubject } from '../../../store/reducers/subjects';
 
 function UpdateSubject(props) {
@@ -16,10 +18,25 @@ function UpdateSubject(props) {
 
     const [nameValue, setNameValue] = useState(name);
     const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
 
     const handleSubmit = (e) => {
+        const updateSubjectCall = async () => {
+            const response = await fetch(`${SUBJECTS_URL}/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name: nameValue }),
+            });
+            const [subject] = await response.json();
+            dispatch(updateSubject(subject));
+            closeModal();
+            enqueueSnackbar(`The subject ${subject.name} was updated!`, { variant: 'info' });
+        };
+
         e.preventDefault();
-        dispatch(updateSubject({ id, name: nameValue }));
+        updateSubjectCall();
     };
 
     return (

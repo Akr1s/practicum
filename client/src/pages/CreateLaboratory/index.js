@@ -7,6 +7,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import './CreateLaboratory.css';
 import Box from '@mui/system/Box';
 import { Button, MenuItem, Select, TextField } from '@mui/material';
+import { useSnackbar } from 'notistack';
 
 function CreateLaboratory() {
     const subjects = useSelector((state) => state.subjects);
@@ -16,6 +17,7 @@ function CreateLaboratory() {
     const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
+    const { enqueueSnackbar } = useSnackbar();
 
     const navigateToSubject = () => {
         const subjectName = location.pathname.split('/')[1];
@@ -26,7 +28,7 @@ function CreateLaboratory() {
         e.preventDefault();
         const savedData = await editorRef.current.save();
 
-        const createSubjectCall = async () => {
+        const createLaboratoryCall = async () => {
             const response = await fetch(LABORATORIES_URL, {
                 method: 'POST',
                 headers: {
@@ -34,11 +36,12 @@ function CreateLaboratory() {
                 },
                 body: JSON.stringify({ name, data: savedData, lessonId: subjectId }),
             });
-            const subjects = await response.json();
-            dispatch(createLaboratory(subjects[0]));
+            const [laboratory] = await response.json();
+            dispatch(createLaboratory(laboratory));
+            enqueueSnackbar(`${laboratory.name} was created!`, { variant: 'success' });
         };
 
-        createSubjectCall();
+        createLaboratoryCall();
         navigateToSubject();
     };
 

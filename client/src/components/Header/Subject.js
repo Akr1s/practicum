@@ -10,12 +10,14 @@ import { deleteSubject } from '../../store/reducers/subjects';
 import { setSubject } from '../../store/reducers/navigation';
 import Box from '@mui/material/Box';
 import { Card } from '@mui/material';
+import { useSnackbar } from 'notistack';
 
 function Subject(props) {
     const { subject, isActive } = props;
     const { name, id } = subject;
     const link = replaceSpaces(name);
     const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
 
     const [isUpdating, setIsUpdating] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
@@ -24,8 +26,9 @@ function Subject(props) {
         try {
             await fetch(`${SUBJECTS_URL}/${id}`, { method: 'DELETE' });
             dispatch(deleteSubject(id));
+            enqueueSnackbar('The subject was deleted!', { variant: 'info' });
         } catch (error) {
-            console.log(error);
+            enqueueSnackbar('The laboratory was deleted!', { variant: 'info' });
         }
     };
 

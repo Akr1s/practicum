@@ -9,18 +9,21 @@ import { LABORATORIES_URL } from '../../constants/fetch';
 import { deleteLaboratory } from '../../store/reducers/laboratories';
 import { setLaboratory } from '../../store/reducers/navigation';
 import { replaceSpaces } from '../../utils/replaceSpaces';
+import { useSnackbar } from 'notistack';
 
 function Laboratory(props) {
     const { pathname } = useLocation();
     const { laboratory } = props;
     const dispatch = useDispatch();
+    const { enqueueSnackbar } = useSnackbar();
 
     const deleteLaboratoryHandler = async () => {
         try {
             await fetch(`${LABORATORIES_URL}/${laboratory.id}`, { method: 'DELETE' });
             dispatch(deleteLaboratory(laboratory.id));
+            enqueueSnackbar('The laboratory was deleted!', { variant: 'info' });
         } catch (error) {
-            console.log(error);
+            enqueueSnackbar('An error occured!', { variant: 'error' });
         }
     };
 
