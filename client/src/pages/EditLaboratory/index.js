@@ -66,8 +66,10 @@ function EditLaboratory() {
                     required
                     onChange={(e) => setSubjectId(e.target.value)}
                 >
-                    {subjects.map((subject) => (
-                        <MenuItem value={subject.id}>{subject.name}</MenuItem>
+                    {subjects.map((subject, index) => (
+                        <MenuItem value={subject.id} key={index}>
+                            {subject.name}
+                        </MenuItem>
                     ))}
                 </Select>
 
