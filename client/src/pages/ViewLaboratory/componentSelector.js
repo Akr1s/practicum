@@ -34,6 +34,10 @@ export const componentSelector = ({ type, data }, key) => {
             return <EditorDelimiter key={key} />;
         }
         default:
-            return <p key={key}>Error getting element</p>;
+            return (
+                <p key={key}>
+                    The <b>{type}</b> element is missing
+                </p>
+            );
     }
 };

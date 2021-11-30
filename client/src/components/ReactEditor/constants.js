@@ -3,8 +3,6 @@ import Table from '@editorjs/table';
 import List from '@editorjs/list';
 import Warning from '@editorjs/warning';
 import Code from '@editorjs/code';
-import LinkTool from '@editorjs/link';
-import Image from '@editorjs/image';
 import Header from '@editorjs/header';
 import Quote from '@editorjs/quote';
 import Marker from '@editorjs/marker';
@@ -19,8 +17,6 @@ export const EDITOR_JS_TOOLS = {
     list: List,
     warning: Warning,
     code: Code,
-    linkTool: LinkTool,
-    image: Image,
     header: Header,
     quote: Quote,
     delimiter: Delimiter,

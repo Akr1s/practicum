@@ -17,7 +17,6 @@ function EditorTable({ data }) {
                 </TableCell>
             ));
     });
-    console.log(mappedRows);
     return (
         <Table
             sx={{ border: '1px solid darkgray', margin: '20px 0px', borderCollapse: 'collapse' }}
