@@ -11,4 +11,5 @@ pool.on('connect', () => {
     console.log('Connection successful');
 });
 
-export const databaseQuery = (text: string, params?: string[]) => pool.query(text, params);
+export const databaseQuery = <T = any>(text: string, params?: string[]) =>
+    pool.query<T>(text, params);

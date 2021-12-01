@@ -13,5 +13,7 @@ var pool = new pg_1.Pool({
 pool.on('connect', function () {
     console.log('Connection successful');
 });
-var databaseQuery = function (text, params) { return pool.query(text, params); };
+var databaseQuery = function (text, params) {
+    return pool.query(text, params);
+};
 exports.databaseQuery = databaseQuery;
