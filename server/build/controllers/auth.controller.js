@@ -93,7 +93,7 @@ function validateUser(_a) {
     });
 }
 function signup(_a) {
-    var username = _a.username, password = _a.password, email = _a.email;
+    var username = _a.username, password = _a.password, email = _a.email, role = _a.role;
     return __awaiter(this, void 0, void 0, function () {
         var encrypted, id, query, user;
         return __generator(this, function (_b) {
@@ -102,7 +102,7 @@ function signup(_a) {
                 case 1:
                     encrypted = _b.sent();
                     id = (0, uuid_1.v4)();
-                    query = "INSERT INTO USERS(ID,USERNAME,EMAIL,PASSWORD) VALUES ('" + id + "','" + username + "','" + email + "','" + encrypted + "')";
+                    query = "INSERT INTO USERS(ID,USERNAME,EMAIL,PASSWORD,ROLE) VALUES ('" + id + "','" + username + "','" + email + "','" + encrypted + "','" + role + "')";
                     return [4 /*yield*/, (0, database_1.databaseQuery)(query)];
                 case 2:
                     _b.sent();

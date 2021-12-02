@@ -32,10 +32,10 @@ async function validateUser({ email, password }: IUserData) {
     return null;
 }
 
-export async function signup({ username, password, email }: ISignupUserData) {
+export async function signup({ username, password, email, role }: ISignupUserData) {
     const encrypted = await bcrypt.hash(password, 10);
     const id = uuidv4();
-    const query = `INSERT INTO USERS(ID,USERNAME,EMAIL,PASSWORD) VALUES ('${id}','${username}','${email}','${encrypted}')`;
+    const query = `INSERT INTO USERS(ID,USERNAME,EMAIL,PASSWORD,ROLE) VALUES ('${id}','${username}','${email}','${encrypted}','${role}')`;
     await databaseQuery(query);
 
     const user = await validateUser({ email, password });
