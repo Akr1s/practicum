@@ -6,12 +6,15 @@ import { setLaboratoriesLoading } from '../../store/reducers/loadings';
 import CreateLaboratory from './CreateLaboratory';
 import Laboratory from './Laboratory';
 import './LaboratoriesList.css';
+import { userRoles } from '../../constants/userRoles';
+import { getUser } from '../../utils/getUser';
 
 function LaboratoriesList(props) {
-    const { id } = props;
+    const { id, name } = props;
     const loading = useSelector((state) => state.loadings.subjectsLoading);
     const laboratories = useSelector((state) => state.laboratories);
     const dispatch = useDispatch();
+    const user = getUser();
 
     useEffect(() => {
         const getAllLaboratories = async () => {
@@ -29,7 +32,12 @@ function LaboratoriesList(props) {
 
     return (
         <div className="laboratories-list">
-            <CreateLaboratory />
+            {user.role !== userRoles.ROLE_STUDENT && <CreateLaboratory />}
+            {user.role === userRoles.ROLE_STUDENT && !laboratories.length && (
+                <p>
+                    Subject <b>{name}</b> does not have any laboratories
+                </p>
+            )}
             {laboratories.map((laboratory) => (
                 <Laboratory laboratory={laboratory} key={laboratory.id} />
             ))}

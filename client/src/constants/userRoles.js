@@ -1,4 +1,4 @@
 export const userRoles = {
-    ROLE_USER: 'user',
+    ROLE_STUDENT: 'student',
     ROLE_TEACHER: 'teacher',
 };

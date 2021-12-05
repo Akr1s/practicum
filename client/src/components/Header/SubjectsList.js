@@ -7,6 +7,8 @@ import { setSubjectsLoading } from '../../store/reducers/loadings';
 import { setSubjects } from '../../store/reducers/subjects';
 import CreateSubjectIcon from './CreateSubjectIcon';
 import Box from '@mui/material/Box';
+import { getUser } from '../../utils/getUser';
+import { userRoles } from '../../constants/userRoles';
 
 function SubjectsList() {
     const [isCreating, setIsCreating] = useState(false);
@@ -14,6 +16,7 @@ function SubjectsList() {
     const subjects = useSelector((state) => state.subjects);
     const activeSubject = useSelector((state) => state.navigation.subject);
     const dispatch = useDispatch();
+    const user = getUser();
 
     useEffect(() => {
         const getAllSubjects = async () => {
@@ -31,11 +34,13 @@ function SubjectsList() {
 
     return (
         <Box className="subjects-list">
-            <CreateSubjectIcon
-                handleCreate={(e) => {
-                    setIsCreating(true);
-                }}
-            />
+            {user.role !== userRoles.ROLE_STUDENT && (
+                <CreateSubjectIcon
+                    handleCreate={(e) => {
+                        setIsCreating(true);
+                    }}
+                />
+            )}
             {subjects.map((subject) => {
                 return (
                     <Subject

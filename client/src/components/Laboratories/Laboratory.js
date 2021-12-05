@@ -10,12 +10,15 @@ import { deleteLaboratory } from '../../store/reducers/laboratories';
 import { setLaboratory } from '../../store/reducers/navigation';
 import { replaceSpaces } from '../../utils/replaceSpaces';
 import { useSnackbar } from 'notistack';
+import { userRoles } from '../../constants/userRoles';
+import { getUser } from '../../utils/getUser';
 
 function Laboratory(props) {
     const { pathname } = useLocation();
     const { laboratory } = props;
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
+    const user = getUser();
 
     const deleteLaboratoryHandler = async () => {
         try {
@@ -37,24 +40,26 @@ function Laboratory(props) {
             className="laboratory-link"
         >
             <Card className="laboratory-item">{laboratory.name}</Card>
-            <Box className="laboratory_icons">
-                <Link to={`${pathname}/${replaceSpaces(laboratory.name)}/edit`}>
-                    <IoPencil
+            {user.role !== userRoles.ROLE_STUDENT && (
+                <Box className="laboratory_icons">
+                    <Link to={`${pathname}/${replaceSpaces(laboratory.name)}/edit`}>
+                        <IoPencil
+                            className="icon"
+                            onClick={(e) => {
+                                setNavigationLaboratory();
+                            }}
+                        />
+                    </Link>
+                    <IoTrash
                         className="icon"
                         onClick={(e) => {
-                            setNavigationLaboratory();
+                            e.stopPropagation();
+                            e.preventDefault();
+                            deleteLaboratoryHandler();
                         }}
                     />
-                </Link>
-                <IoTrash
-                    className="icon"
-                    onClick={(e) => {
-                        e.stopPropagation();
-                        e.preventDefault();
-                        deleteLaboratoryHandler();
-                    }}
-                />
-            </Box>
+                </Box>
+            )}
         </Link>
     );
 }

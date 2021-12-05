@@ -11,6 +11,8 @@ import { setSubject } from '../../store/reducers/navigation';
 import Box from '@mui/material/Box';
 import { Card } from '@mui/material';
 import { useSnackbar } from 'notistack';
+import { userRoles } from '../../constants/userRoles';
+import { getUser } from '../../utils/getUser';
 
 function Subject(props) {
     const { subject, isActive } = props;
@@ -18,6 +20,7 @@ function Subject(props) {
     const link = replaceSpaces(name);
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
+    const user = getUser();
 
     const [isUpdating, setIsUpdating] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
@@ -41,20 +44,22 @@ function Subject(props) {
             <Link className="subject_name" to={`/${link}`} onClick={setNavigationSubject}>
                 {name}
             </Link>
-            <Box className="subject_icons">
-                <IoPencil
-                    className="icon"
-                    onClick={() => {
-                        setIsUpdating(true);
-                    }}
-                />
-                <IoTrash
-                    className="icon"
-                    onClick={() => {
-                        setIsDeleting(true);
-                    }}
-                />
-            </Box>
+            {user.role !== userRoles.ROLE_STUDENT && (
+                <Box className="subject_icons">
+                    <IoPencil
+                        className="icon"
+                        onClick={() => {
+                            setIsUpdating(true);
+                        }}
+                    />
+                    <IoTrash
+                        className="icon"
+                        onClick={() => {
+                            setIsDeleting(true);
+                        }}
+                    />
+                </Box>
+            )}
             {isUpdating && (
                 <UpdateSubject subject={subject} closeModal={() => setIsUpdating(false)} />
             )}

@@ -9,7 +9,7 @@ function Laborataries() {
     if (!subject) return <Navigate to="/" />;
     return (
         <Box component="section" className="page">
-            <LaboratoriesList id={subject.id} />
+            <LaboratoriesList id={subject.id} name={subject.name} />
         </Box>
     );
 }
