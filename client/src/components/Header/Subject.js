@@ -41,7 +41,12 @@ function Subject(props) {
 
     return (
         <Card className={`subject ${isActive ? 'active' : ''}`} sx={{ marginTop: '10px' }}>
-            <Link className="subject_name" to={`/${link}`} onClick={setNavigationSubject}>
+            <Link
+                style={{ display: 'block', width: '100%' }}
+                className="subject_name"
+                to={`/${link}`}
+                onClick={setNavigationSubject}
+            >
                 {name}
             </Link>
             {user.role !== userRoles.ROLE_STUDENT && (

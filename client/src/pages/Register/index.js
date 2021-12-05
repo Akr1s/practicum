@@ -120,7 +120,13 @@ export default function SignUp() {
                         <Grid item xs={12}>
                             <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">User role</InputLabel>
-                                <Select name="role" label="role" type="role" id="role">
+                                <Select
+                                    name="role"
+                                    label="role"
+                                    type="role"
+                                    id="role"
+                                    defaultValue={userRoles.ROLE_STUDENT}
+                                >
                                     {Object.values(userRoles).map((role, index) => (
                                         <MenuItem key={index} value={role}>
                                             {role.toUpperCase()}
