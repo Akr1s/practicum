@@ -5,6 +5,7 @@ import { componentSelector } from './componentSelector';
 import './ViewLaboratory.css';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import QuestionsList from '../../components/QuestionsList';
 
 function ViewLaboratory() {
     const laboratory = useSelector((state) => state.navigation.laboratory);
@@ -17,6 +18,8 @@ function ViewLaboratory() {
             </Typography>
 
             {laboratory.data.blocks.map((block, index) => componentSelector(block, index))}
+
+            <QuestionsList list={[]} />
         </Box>
     );
 }
