@@ -1,5 +1,6 @@
 import { Table, TableBody, TableCell, TableRow } from '@mui/material';
 import React from 'react';
+import { escapeHtml } from '../../../utils/escape';
 
 function EditorTable({ data }) {
     const { content, withHeadings } = data;
@@ -7,13 +8,13 @@ function EditorTable({ data }) {
         if (index === 0 && withHeadings) {
             return row.map((cell, index) => (
                 <TableCell key={index} sx={{ textAlign: 'center', border: '1px solid darkgray' }}>
-                    <b>{cell}</b>
+                    <b>{escapeHtml(cell)}</b>
                 </TableCell>
             ));
         } else
             return row.map((cell, index) => (
                 <TableCell key={index} sx={{ textAlign: 'center', border: '1px solid darkgray' }}>
-                    {cell}
+                    {escapeHtml(cell)}
                 </TableCell>
             ));
     });
