@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { SUBJECTS_URL } from '../../constants/fetch';
-import CreateSubject from '../modals/CreateSubject/CreateSubject';
-import Subject from './Subject';
-import { setSubjectsLoading } from '../../store/reducers/loadings';
-import { setSubjects } from '../../store/reducers/subjects';
-import CreateSubjectIcon from './CreateSubjectIcon';
+
 import Box from '@mui/material/Box';
-import { getUser } from '../../utils/getUser';
-import { userRoles } from '../../constants/userRoles';
+import { useDispatch, useSelector } from 'react-redux';
+
+import CreateSubject from './modals/CreateSubject';
+import CreateSubjectIcon from './CreateSubjectIcon';
+import Subject from './Subject';
+import { getUser } from '../utils/getUser';
+import { setSubjects } from '../store/reducers/subjects';
+import { setSubjectsLoading } from '../store/reducers/loadings';
+import { SUBJECTS_URL } from '../constants/fetch';
+import { userRoles } from '../constants/userRoles';
 
 function SubjectsList() {
     const [isCreating, setIsCreating] = useState(false);

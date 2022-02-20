@@ -1,11 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
-import { componentSelector } from './componentSelector';
+
 import './ViewLaboratory.css';
+
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import QuestionsList from '../../components/QuestionsList';
+import { componentSelector } from './componentSelector';
 
 function ViewLaboratory() {
     const laboratory = useSelector((state) => state.navigation.laboratory);

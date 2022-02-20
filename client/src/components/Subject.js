@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
-import { IoTrash, IoPencil } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
-import { replaceSpaces } from '../../utils/replaceSpaces';
-import UpdateSubject from '../modals/UpdateSubject/UpdateSubject';
-import ConfirmModal from '../modals/ConfirmModal/ConfirmModal';
-import { SUBJECTS_URL } from '../../constants/fetch';
-import { useDispatch } from 'react-redux';
-import { deleteSubject } from '../../store/reducers/subjects';
-import { setSubject } from '../../store/reducers/navigation';
+
 import Box from '@mui/material/Box';
 import { Card } from '@mui/material';
+import { IoTrash, IoPencil } from 'react-icons/io5';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
-import { userRoles } from '../../constants/userRoles';
-import { getUser } from '../../utils/getUser';
+
+import ConfirmModal from './modals/ConfirmModal';
+import UpdateSubject from './modals/UpdateSubject';
+import { deleteSubject } from '../store/reducers/subjects';
+import { getUser } from '../utils/getUser';
+import { replaceSpaces } from '../utils/replaceSpaces';
+import { setSubject } from '../store/reducers/navigation';
+import { SUBJECTS_URL } from '../constants/fetch';
+import { userRoles } from '../constants/userRoles';
 
 function Subject(props) {
     const { subject, isActive } = props;

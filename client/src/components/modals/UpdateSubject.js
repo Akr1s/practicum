@@ -1,3 +1,5 @@
+import React, { useState } from 'react';
+
 import {
     Button,
     Dialog,
@@ -6,47 +8,47 @@ import {
     DialogTitle,
     TextField,
 } from '@mui/material';
-import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { SUBJECTS_URL } from '../../../constants/fetch';
-import { createSubject } from '../../../store/reducers/subjects';
 import { useSnackbar } from 'notistack';
 
-function CreateSubject(props) {
-    const { closeModal } = props;
+import { SUBJECTS_URL } from '../../constants/fetch';
+import { updateSubject } from '../../store/reducers/subjects';
 
-    const [nameValue, setNameValue] = useState('');
+function UpdateSubject(props) {
+    const { subject, closeModal } = props;
+    const { id, name } = subject;
+
+    const [nameValue, setNameValue] = useState(name);
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
 
     const handleSubmit = (e) => {
-        const createSubjectCall = async () => {
-            const response = await fetch(SUBJECTS_URL, {
-                method: 'POST',
+        const updateSubjectCall = async () => {
+            const response = await fetch(`${SUBJECTS_URL}/${id}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ name: nameValue }),
             });
             const [subject] = await response.json();
-            dispatch(createSubject(subject));
+            dispatch(updateSubject(subject));
             closeModal();
-            enqueueSnackbar(`The subject ${subject.name} was created!`, { variant: 'success' });
+            enqueueSnackbar(`The subject ${subject.name} was updated!`, { variant: 'info' });
         };
 
         e.preventDefault();
-        createSubjectCall();
+        updateSubjectCall();
     };
 
     return (
         <Dialog open={true} onClose={closeModal}>
-            <DialogTitle>Create Subject</DialogTitle>
+            <DialogTitle>Update Subject</DialogTitle>
             <DialogContent>
                 <TextField
                     id="subject-name"
                     label="Subject name"
                     variant="filled"
-                    required
                     value={nameValue}
                     onChange={(e) => setNameValue(e.target.value)}
                     error={!nameValue}
@@ -58,11 +60,11 @@ function CreateSubject(props) {
                     Cancel
                 </Button>
                 <Button variant="contained" disabled={!nameValue} onClick={handleSubmit}>
-                    Create
+                    Update
                 </Button>
             </DialogActions>
         </Dialog>
     );
 }
 
-export default CreateSubject;
+export default UpdateSubject;

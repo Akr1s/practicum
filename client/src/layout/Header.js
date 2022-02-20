@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import Sidebar from './Sidebar';
+
 import './Header.css';
-import { IoMenu } from 'react-icons/io5';
+
 import Avatar from '@mui/material/Avatar';
-import { LOGOUT_URL } from '../../constants/fetch';
+import { IoMenu } from 'react-icons/io5';
 import { useSnackbar } from 'notistack';
+
+import Sidebar from './Sidebar';
+import { getUser } from '../utils/getUser';
+import { LOGOUT_URL } from '../constants/fetch';
 import { useNavigate } from 'react-router';
-import { getUser } from '../../utils/getUser';
 
 function stringToColor(string) {
     let hash = 0;

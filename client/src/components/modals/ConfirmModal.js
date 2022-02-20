@@ -1,5 +1,6 @@
-import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 import React from 'react';
+
+import { Button, Dialog, DialogActions, DialogTitle } from '@mui/material';
 
 function ConfirmModal(props) {
     const { handleClose, handleConfirm, confirmText, cancelText, title } = props;

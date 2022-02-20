@@ -1,9 +1,11 @@
 import React from 'react';
-import { IoSchool } from 'react-icons/io5';
-import SubjectsList from './SubjectsList';
+
+import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
-import Box from '@mui/material/Box';
+import { IoSchool } from 'react-icons/io5';
+
+import SubjectsList from '../components/SubjectsList';
 
 function Sidebar(props) {
     const { open, onClose } = props;
