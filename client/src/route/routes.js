@@ -1,11 +1,11 @@
-import CreateLaboratory from '../pages/CreateLaboratory';
-import EditLaboratory from '../pages/EditLaboratory';
-import Home from '../pages/Home';
-import Laboratories from '../pages/Laboratories';
-import Login from '../pages/Login';
+import CreateLaboratory from '../views/CreateLaboratory';
+import EditLaboratory from '../views/EditLaboratory';
+import Home from '../views/Home';
+import Laboratories from '../views/Laboratories';
+import Login from '../views/Login';
 import ProtectedRoute from './ProtectedRoute';
-import Register from '../pages/Register';
-import ViewLaboratory from '../pages/ViewLaboratory';
+import Register from '../views/Register';
+import ViewLaboratory from '../views/ViewLaboratory';
 
 export const routes = [
     { path: '/', element: <ProtectedRoute component={Home} />, exact: true },
