@@ -12,12 +12,21 @@ import { setSubjectsLoading } from '../store/reducers/loadings';
 import { SUBJECTS_URL } from '../constants/fetch';
 import { userRoles } from '../constants/userRoles';
 
+const classes = {
+    root: {
+        width: '100%',
+        padding: '0px 10px',
+    },
+};
+
 function SubjectsList() {
-    const [isCreating, setIsCreating] = useState(false);
     const loading = useSelector((state) => state.loadings.subjectsLoading);
     const subjects = useSelector((state) => state.subjects);
     const activeSubject = useSelector((state) => state.navigation.subject);
     const dispatch = useDispatch();
+
+    const [isCreating, setIsCreating] = useState(false);
+
     const user = getUser();
 
     useEffect(() => {
@@ -32,10 +41,10 @@ function SubjectsList() {
         getAllSubjects();
     }, []);
 
-    if (loading) return <div className="subjects-list">Loading</div>;
+    if (loading) return <Box sx={classes.root}>Loading</Box>;
 
     return (
-        <Box className="subjects-list">
+        <Box sx={classes.root}>
             {user.role !== userRoles.ROLE_STUDENT && (
                 <CreateSubjectIcon
                     handleCreate={(e) => {

@@ -16,16 +16,50 @@ import { setSubject } from '../store/reducers/navigation';
 import { SUBJECTS_URL } from '../constants/fetch';
 import { userRoles } from '../constants/userRoles';
 
+const classes = {
+    root: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '5px 10px',
+        fontSize: '18px',
+        marginTop: '10px',
+    },
+    active: {
+        borderRadius: '10px',
+        backgroundColor: 'var(--gray-color, "gray")',
+        '&:hover': {
+            borderRadius: '10px',
+            backgroundColor: 'var(--light-gray-color, "gray")',
+        },
+    },
+    link: {
+        display: 'block',
+        width: '100%',
+        textDecoration: 'none',
+        color: 'var(--dark-gray-color, "dimgray")',
+    },
+    icon: {
+        cursor: 'pointer',
+        '&:hover': {
+            transform: 'scale(1.2)',
+        },
+        '&::not(:last-of-type)': {
+            marginRight: '8px',
+        },
+    },
+};
+
 function Subject(props) {
     const { subject, isActive } = props;
     const { name, id } = subject;
-    const link = replaceSpaces(name);
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-    const user = getUser();
 
     const [isUpdating, setIsUpdating] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
+
+    const link = replaceSpaces(name);
+    const user = getUser();
 
     const deleteSubjectHandler = async () => {
         try {
@@ -42,25 +76,20 @@ function Subject(props) {
     };
 
     return (
-        <Card className={`subject ${isActive ? 'active' : ''}`} sx={{ marginTop: '10px' }}>
-            <Link
-                style={{ display: 'block', width: '100%' }}
-                className="subject_name"
-                to={`/${link}`}
-                onClick={setNavigationSubject}
-            >
+        <Card sx={{ ...classes.root, ...(isActive ? classes.active : {}) }}>
+            <Link style={classes.link} to={`/${link}`} onClick={setNavigationSubject}>
                 {name}
             </Link>
             {user.role !== userRoles.ROLE_STUDENT && (
-                <Box className="subject_icons">
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
                     <IoPencil
-                        className="icon"
+                        style={classes.icon}
                         onClick={() => {
                             setIsUpdating(true);
                         }}
                     />
                     <IoTrash
-                        className="icon"
+                        style={classes.icon}
                         onClick={() => {
                             setIsDeleting(true);
                         }}

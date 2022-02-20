@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
-import './Header.css';
-
 import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
 import { IoMenu } from 'react-icons/io5';
 import { useSnackbar } from 'notistack';
 
@@ -10,6 +9,18 @@ import Sidebar from './Sidebar';
 import { getUser } from '../utils/getUser';
 import { LOGOUT_URL } from '../constants/fetch';
 import { useNavigate } from 'react-router';
+
+const classes = {
+    root: {
+        backgroundColor: 'var(--white-color, "white")',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '25px',
+    },
+    icon: { fontSize: '36px', cursor: 'pointer' },
+    avatar: { width: 36, height: 36, cursor: 'pointer' },
+};
 
 function stringToColor(string) {
     let hash = 0;
@@ -39,13 +50,15 @@ function stringAvatar(name) {
 }
 
 function Header() {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
+
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     const closeSidebar = () => {
         setIsSidebarOpen(false);
     };
+
     const user = getUser();
 
     if (!user) return null;
@@ -66,18 +79,10 @@ function Header() {
 
     return (
         <>
-            <header>
-                <IoMenu
-                    className="menu-icon"
-                    onClick={() => setIsSidebarOpen(true)}
-                    sx={{ fontSize: '36px' }}
-                />
-                <Avatar
-                    {...stringAvatar(user.username)}
-                    sx={{ width: 36, height: 36, cursor: 'pointer' }}
-                    onClick={logout}
-                />
-            </header>
+            <Box component="header" sx={classes.root}>
+                <IoMenu onClick={() => setIsSidebarOpen(true)} style={classes.icon} />
+                <Avatar {...stringAvatar(user.username)} style={classes.avatar} onClick={logout} />
+            </Box>
             <Sidebar open={isSidebarOpen} onClose={closeSidebar} />
         </>
     );
