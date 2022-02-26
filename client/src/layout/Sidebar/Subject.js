@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 
-import ConfirmModal from '../../modals/ConfirmModal';
+import CustomDialog from '../../components/CustomDialog';
 import UpdateSubject from '../../modals/UpdateSubject';
 import { appMessages } from '../../constants/appMessage';
 import { deleteSubject } from '../../store/reducers/subjects';
@@ -101,12 +101,13 @@ export default function Subject(props) {
                 <UpdateSubject subject={subject} closeModal={() => setIsUpdating(false)} />
             )}
             {isDeleting && (
-                <ConfirmModal
+                <CustomDialog
                     title="Do you wanna delete this subject?"
                     confirmText="Delete subject"
                     cancelText="Cancel"
                     handleConfirm={deleteSubjectHandler}
                     handleClose={() => setIsDeleting(false)}
+                    disableSubmit={false}
                 />
             )}
         </Card>
