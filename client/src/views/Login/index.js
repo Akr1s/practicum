@@ -1,18 +1,20 @@
-import * as React from 'react';
+import React from 'react';
+
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { IoLockClosedOutline } from 'react-icons/io5';
-import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import { LOGIN_URL } from '../../constants/fetch';
+import CssBaseline from '@mui/material/CssBaseline';
 import decode from 'jwt-decode';
-import { useSnackbar } from 'notistack';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
+import { IoLockClosedOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router';
+import { useSnackbar } from 'notistack';
+
+import { AuthService } from '../../services/authService';
 
 function Copyright(props) {
     return (
@@ -36,22 +38,15 @@ export default function SignIn() {
 
         const email = data.get('email');
         const password = data.get('password');
-        try {
-            const response = await fetch(LOGIN_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
-            const responseJson = await response.json();
-            const userData = decode(responseJson.access_token);
-            if (!userData) throw Error('Something went wrong');
-            localStorage.setItem('user', JSON.stringify(userData));
-            navigate('/');
-        } catch (error) {
-            enqueueSnackbar(error.message, { variant: 'error' });
-        }
+
+        AuthService.login({ email, password })
+            .then((data) => {
+                const userData = decode(data.access_token);
+                if (!userData) throw Error('Something went wrong');
+                localStorage.setItem('user', JSON.stringify(userData));
+                navigate('/');
+            })
+            .catch(() => enqueueSnackbar('An error has occured, try again', { variant: 'info' }));
     };
 
     return (

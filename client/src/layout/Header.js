@@ -7,8 +7,8 @@ import { useSnackbar } from 'notistack';
 
 import Sidebar from './Sidebar';
 import { getUser } from '../utils/getUser';
-import { LOGOUT_URL } from '../constants/fetch';
 import { useNavigate } from 'react-router';
+import { AuthService } from '../services/authService';
 
 const classes = {
     root: {
@@ -64,17 +64,12 @@ function Header() {
     if (!user) return null;
 
     const logout = async () => {
-        try {
-            const response = await fetch(LOGOUT_URL, {
-                method: 'POST',
-            });
-            const responseData = await response.json();
-            if (responseData.status !== 'ok') throw Error('Something went wrong');
-            localStorage.removeItem('user');
-            navigate('/signin');
-        } catch (error) {
-            enqueueSnackbar(error.message, { variant: 'error' });
-        }
+        AuthService.logout()
+            .then(() => {
+                localStorage.removeItem('user');
+                navigate('/signin');
+            })
+            .catch(() => enqueueSnackbar('An error has occured, try again', { variant: 'info' }));
     };
 
     return (

@@ -1,19 +1,21 @@
-import * as React from 'react';
+import React from 'react';
+
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import { IoLockClosedOutline } from 'react-icons/io5';
-import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
-import { REGISTRATION_URL } from '../../constants/fetch';
-import { useSnackbar } from 'notistack';
-import { useNavigate } from 'react-router';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+import Link from '@mui/material/Link';
+import TextField from '@mui/material/TextField';
+import Typography from '@mui/material/Typography';
 import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { IoLockClosedOutline } from 'react-icons/io5';
+import { useNavigate } from 'react-router';
+import { useSnackbar } from 'notistack';
+
 import { userRoles } from '../../constants/userRoles';
+import { AuthService } from '../../services/authService';
 
 function Copyright(props) {
     return (
@@ -40,20 +42,12 @@ export default function SignUp() {
         const password = data.get('password');
         const username = `${data.get('firstName')} ${data.get('lastName')}`;
         const role = data.get('role');
-        try {
-            const response = await fetch(REGISTRATION_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password, username, role }),
-            });
-            const responseData = await response.json();
-            if (responseData.status !== 'ok') throw Error('Something went wrong');
-            navigate('/login');
-        } catch (error) {
-            enqueueSnackbar(error.message, { variant: 'error' });
-        }
+
+        AuthService.register({ email, password, username, role })
+            .then(() => {
+                navigate('/login');
+            })
+            .catch(() => enqueueSnackbar('An error has occured, try again', { variant: 'info' }));
     };
 
     return (
