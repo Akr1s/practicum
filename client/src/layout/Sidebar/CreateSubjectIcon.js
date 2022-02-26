@@ -1,7 +1,7 @@
 import React from 'react';
 
+import AddIcon from '@mui/icons-material/Add';
 import { Card } from '@mui/material';
-import { IoAdd } from 'react-icons/io5';
 
 const classes = {
     root: {
@@ -20,7 +20,7 @@ export default function CreateSubjectIcon(props) {
     const { handleCreate } = props;
     return (
         <Card sx={classes.root} onClick={handleCreate}>
-            <IoAdd style={classes.icon} />
+            <AddIcon sx={classes.icon} />
         </Card>
     );
 }

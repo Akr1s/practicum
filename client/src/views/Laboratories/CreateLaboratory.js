@@ -1,7 +1,7 @@
 import React from 'react';
 
+import AddIcon from '@mui/icons-material/Add';
 import { Card } from '@mui/material';
-import { IoAdd } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
 
@@ -26,7 +26,7 @@ export default function CreateLaboratory() {
     return (
         <Link to={`${pathname}/create`}>
             <Card sx={classes.card} title="Create">
-                <IoAdd style={{ fontSize: '50px' }} />
+                <AddIcon sx={{ fontSize: '50px' }} />
             </Card>
         </Link>
     );

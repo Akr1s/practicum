@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
 import { Box } from '@mui/system';
-import { IoRemove, IoAdd } from 'react-icons/io5';
 
 export default function QuestionsList(list) {
     const [isQuestionsOpen, setIsQuestionsOpen] = useState(false);
@@ -20,7 +21,7 @@ export default function QuestionsList(list) {
                         fontSize: '30px',
                     }}
                 >
-                    {isQuestionsOpen ? <IoRemove /> : <IoAdd />}
+                    {isQuestionsOpen ? <RemoveIcon /> : <AddIcon />}
                 </Box>{' '}
             </Box>
             {isQuestionsOpen && (

@@ -8,9 +8,9 @@ import CssBaseline from '@mui/material/CssBaseline';
 import decode from 'jwt-decode';
 import Grid from '@mui/material/Grid';
 import Link from '@mui/material/Link';
+import LockIcon from '@mui/icons-material/Lock';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import { IoLockClosedOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router';
 import { useSnackbar } from 'notistack';
 
@@ -63,7 +63,7 @@ export default function SignIn() {
                 }}
             >
                 <Avatar sx={{ m: 1 }}>
-                    <IoLockClosedOutline />
+                    <LockIcon />
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign in

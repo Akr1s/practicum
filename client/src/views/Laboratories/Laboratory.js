@@ -1,8 +1,9 @@
 import React from 'react';
 
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { Box } from '@mui/system';
 import { Card } from '@mui/material';
-import { IoPencil, IoTrash } from 'react-icons/io5';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -73,15 +74,15 @@ export default function Laboratory(props) {
             {user.role !== userRoles.ROLE_STUDENT && (
                 <Box sx={classes.icons}>
                     <Link to={`${pathname}/${replaceSpaces(laboratory.name)}/edit`}>
-                        <IoPencil
-                            style={classes.icon}
+                        <EditIcon
+                            sx={classes.icon}
                             onClick={(e) => {
                                 setNavigationLaboratory();
                             }}
                         />
                     </Link>
-                    <IoTrash
-                        style={classes.icon}
+                    <DeleteIcon
+                        sx={classes.icon}
                         onClick={(e) => {
                             e.stopPropagation();
                             e.preventDefault();

@@ -2,7 +2,7 @@ import React from 'react';
 
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
-import { IoMenu } from 'react-icons/io5';
+import MenuIcon from '@mui/icons-material/Menu';
 import { useNavigate } from 'react-router';
 import { useSnackbar } from 'notistack';
 
@@ -43,7 +43,7 @@ function Header({ openSidebar }) {
 
     return (
         <Box component="header" sx={classes.root}>
-            <IoMenu onClick={openSidebar} style={classes.icon} />
+            <MenuIcon onClick={openSidebar} sx={classes.icon} />
             <Avatar {...stringAvatar(user.username)} style={classes.avatar} onClick={logout} />
         </Box>
     );
