@@ -1,22 +1,18 @@
 import React from 'react';
 
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Box } from '@mui/system';
 import { Card } from '@mui/material';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
+import LaboratoryIcon from './LaboratoryIcon';
 import { appMessages } from '../../constants/appMessage';
 import { deleteLaboratory } from '../../store/reducers/laboratories';
-import { getUser } from '../../utils/getUser';
 import { LaboratoriesService } from '../../services/laboratoriseService';
 import { replaceSpaces } from '../../utils/replaceSpaces';
 import { setLaboratory } from '../../store/reducers/navigation';
 import { Severities } from '../../constants/severities';
-import { userRoles } from '../../constants/userRoles';
 
 const classes = {
     link: { display: 'block', position: 'relative' },
@@ -47,7 +43,6 @@ export default function Laboratory(props) {
     const { laboratory } = props;
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-    const user = getUser();
 
     const deleteLaboratoryHandler = async () => {
         LaboratoriesService.deleteLaboratory(laboratory.id)
@@ -68,26 +63,16 @@ export default function Laboratory(props) {
             style={classes.link}
         >
             <Card sx={classes.laboratory}>{laboratory.name}</Card>
-            {user.role !== userRoles.ROLE_STUDENT && (
-                <Box sx={classes.icons}>
-                    <Link to={`${pathname}/${replaceSpaces(laboratory.name)}/edit`}>
-                        <EditIcon
-                            sx={{ ...classes.icon, marginRight: '4px' }}
-                            onClick={(e) => {
-                                setNavigationLaboratory();
-                            }}
-                        />
-                    </Link>
-                    <DeleteIcon
-                        sx={classes.icon}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            e.preventDefault();
-                            deleteLaboratoryHandler();
-                        }}
-                    />
-                </Box>
-            )}
+            <LaboratoryIcon
+                onEdit={setNavigationLaboratory}
+                onDelete={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    deleteLaboratoryHandler();
+                }}
+                pathname={pathname}
+                laboratoryName={replaceSpaces(laboratory.name)}
+            />
         </Link>
     );
 }
