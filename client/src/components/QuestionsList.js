@@ -2,7 +2,7 @@ import { Box } from '@mui/system';
 import React, { useState } from 'react';
 import { IoRemove, IoAdd } from 'react-icons/io5';
 
-function QuestionsList(list) {
+export default function QuestionsList(list) {
     const [isQuestionsOpen, setIsQuestionsOpen] = useState(false);
     return (
         <Box
@@ -33,5 +33,3 @@ function QuestionsList(list) {
         </Box>
     );
 }
-
-export default QuestionsList;

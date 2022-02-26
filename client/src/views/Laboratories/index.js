@@ -1,8 +1,10 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import LaboratoriesList from '../../components/Laboratories/LaboratoriesList';
-import { Navigate } from 'react-router-dom';
+
 import Box from '@mui/material/Box';
+import { Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+import LaboratoriesList from './LaboratoriesList';
 
 function Laborataries() {
     const subject = useSelector((state) => state.navigation.subject);

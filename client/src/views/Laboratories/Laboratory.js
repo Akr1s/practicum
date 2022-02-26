@@ -17,7 +17,34 @@ import { setLaboratory } from '../../store/reducers/navigation';
 import { Severities } from '../../constants/severities';
 import { userRoles } from '../../constants/userRoles';
 
-function Laboratory(props) {
+const classes = {
+    link: { display: 'block', position: 'relative' },
+    icons: { position: 'absolute', top: '10px', right: '10px' },
+    icon: {
+        fontSize: '18px',
+        '&:hover': {
+            transform: 'scale(1.2)',
+        },
+        '&:not(:last-of-type)': {
+            marginRight: '8px',
+        },
+    },
+    laboratory: {
+        width: '120px',
+        height: '150px',
+        backgroundColor: 'var(--white-color, white)',
+        borderRadius: '4px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        textAlign: 'center',
+        '&:hover': {
+            backgroundColor: 'var(--light-gray-color, gray)',
+        },
+    },
+};
+
+export default function Laboratory(props) {
     const { pathname } = useLocation();
     const { laboratory } = props;
     const dispatch = useDispatch();
@@ -40,21 +67,21 @@ function Laboratory(props) {
         <Link
             to={`${pathname}/${replaceSpaces(laboratory.name)}`}
             onClick={setNavigationLaboratory}
-            className="laboratory-link"
+            style={classes.link}
         >
-            <Card className="laboratory-item">{laboratory.name}</Card>
+            <Card sx={classes.laboratory}>{laboratory.name}</Card>
             {user.role !== userRoles.ROLE_STUDENT && (
-                <Box className="laboratory_icons">
+                <Box sx={classes.icons}>
                     <Link to={`${pathname}/${replaceSpaces(laboratory.name)}/edit`}>
                         <IoPencil
-                            className="icon"
+                            style={classes.icon}
                             onClick={(e) => {
                                 setNavigationLaboratory();
                             }}
                         />
                     </Link>
                     <IoTrash
-                        className="icon"
+                        style={classes.icon}
                         onClick={(e) => {
                             e.stopPropagation();
                             e.preventDefault();
@@ -66,5 +93,3 @@ function Laboratory(props) {
         </Link>
     );
 }
-
-export default Laboratory;
