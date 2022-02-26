@@ -11,7 +11,7 @@ import {
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 
-import { SUBJECTS_URL } from '../../constants/fetch';
+import { SubjectsService } from '../../services/subjectsService';
 import { updateSubject } from '../../store/reducers/subjects';
 
 function UpdateSubject(props) {
@@ -23,22 +23,13 @@ function UpdateSubject(props) {
     const { enqueueSnackbar } = useSnackbar();
 
     const handleSubmit = (e) => {
-        const updateSubjectCall = async () => {
-            const response = await fetch(`${SUBJECTS_URL}/${id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name: nameValue }),
-            });
-            const [subject] = await response.json();
-            dispatch(updateSubject(subject));
-            closeModal();
-            enqueueSnackbar(`The subject ${subject.name} was updated!`, { variant: 'info' });
-        };
-
-        e.preventDefault();
-        updateSubjectCall();
+        SubjectsService.updateSubject(nameValue, id)
+            .then(([subject]) => {
+                dispatch(updateSubject(subject));
+                closeModal();
+                enqueueSnackbar(`The subject ${subject.name} was updated!`, { variant: 'info' });
+            })
+            .catch(() => enqueueSnackbar('An error has occured, try again', { variant: 'info' }));
     };
 
     return (
