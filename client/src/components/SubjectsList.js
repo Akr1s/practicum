@@ -9,9 +9,8 @@ import Loader from './Loader';
 import Subject from './Subject';
 import { getUser } from '../utils/getUser';
 import { setSubjects } from '../store/reducers/subjects';
-import { setSubjectsLoading } from '../store/reducers/loadings';
-import { SUBJECTS_URL } from '../constants/fetch';
 import { userRoles } from '../constants/userRoles';
+import { SubjectsService } from '../services/subjectsService';
 
 const classes = {
     root: {
@@ -21,28 +20,24 @@ const classes = {
 };
 
 function SubjectsList() {
-    const loading = useSelector((state) => state.loadings.subjectsLoading);
     const subjects = useSelector((state) => state.subjects);
     const activeSubject = useSelector((state) => state.navigation.subject);
     const dispatch = useDispatch();
 
     const [isCreating, setIsCreating] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
     const user = getUser();
 
     useEffect(() => {
-        const getAllSubjects = async () => {
-            dispatch(setSubjectsLoading(true));
-            const response = await fetch(SUBJECTS_URL);
-            const subjects = await response.json();
-            dispatch(setSubjects(subjects));
-            dispatch(setSubjectsLoading(false));
-        };
-
-        getAllSubjects();
+        setIsLoading(true);
+        SubjectsService.getSubjects().then((data) => {
+            setSubjects(data);
+            dispatch(setSubjects(data));
+        });
     }, []);
 
-    return loading ? (
+    return isLoading ? (
         <Loader />
     ) : (
         <Box sx={classes.root}>
