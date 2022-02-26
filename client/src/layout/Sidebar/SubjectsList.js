@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 
-import CreateSubject from '../../components/modals/CreateSubject';
+import CreateSubject from '../../modals/CreateSubject';
 import CreateSubjectIcon from './CreateSubjectIcon';
 import Loader from '../../components/Loader';
 import Subject from './Subject';

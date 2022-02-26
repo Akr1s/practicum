@@ -10,10 +10,10 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 
-import { appMessages } from '../../constants/appMessage';
-import { createSubject } from '../../store/reducers/subjects';
-import { Severities } from '../../constants/severities';
-import { SubjectsService } from '../../services/subjectsService';
+import { appMessages } from '../constants/appMessage';
+import { createSubject } from '../store/reducers/subjects';
+import { Severities } from '../constants/severities';
+import { SubjectsService } from '../services/subjectsService';
 
 function CreateSubject(props) {
     const { closeModal } = props;

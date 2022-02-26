@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 
-import ConfirmModal from '../../components/modals/ConfirmModal';
-import UpdateSubject from '../../components/modals/UpdateSubject';
+import ConfirmModal from '../../modals/ConfirmModal';
+import UpdateSubject from '../../modals/UpdateSubject';
 import { appMessages } from '../../constants/appMessage';
 import { deleteSubject } from '../../store/reducers/subjects';
 import { getUser } from '../../utils/getUser';
