@@ -13,8 +13,8 @@ import { deleteSubject } from '../store/reducers/subjects';
 import { getUser } from '../utils/getUser';
 import { replaceSpaces } from '../utils/replaceSpaces';
 import { setSubject } from '../store/reducers/navigation';
-import { SUBJECTS_URL } from '../constants/fetch';
 import { userRoles } from '../constants/userRoles';
+import { SubjectsService } from '../services/subjectsService';
 
 const classes = {
     root: {
@@ -52,8 +52,8 @@ const classes = {
 function Subject(props) {
     const { subject, isActive } = props;
     const { name, id } = subject;
-    const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
+    const dispatch = useDispatch();
 
     const [isUpdating, setIsUpdating] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
@@ -62,13 +62,12 @@ function Subject(props) {
     const user = getUser();
 
     const deleteSubjectHandler = async () => {
-        try {
-            await fetch(`${SUBJECTS_URL}/${id}`, { method: 'DELETE' });
-            dispatch(deleteSubject(id));
-            enqueueSnackbar('The subject was deleted!', { variant: 'info' });
-        } catch (error) {
-            enqueueSnackbar('The laboratory was deleted!', { variant: 'info' });
-        }
+        SubjectsService.deleteSubject(id)
+            .then(() => {
+                dispatch(deleteSubject(id));
+                enqueueSnackbar('The subject was deleted!', { variant: 'info' });
+            })
+            .catch(() => enqueueSnackbar('An error has occured, try again', { variant: 'info' }));
     };
 
     const setNavigationSubject = () => {
