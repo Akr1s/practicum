@@ -39,7 +39,7 @@ export default function CreateSubject(props) {
             confirmText="Create"
             cancelText="Cancel"
             title="Create Subject"
-            disableSubmit={true}
+            disableSubmit={!nameValue}
         >
             <TextField
                 id="subject-name"

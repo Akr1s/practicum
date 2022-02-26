@@ -1,16 +1,10 @@
 import React, { useState } from 'react';
 
-import {
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    DialogTitle,
-    TextField,
-} from '@mui/material';
+import TextField from '@mui/material/TextField';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 
+import CustomDialog from '../components/CustomDialog';
 import { appMessages } from '../constants/appMessage';
 import { Severities } from '../constants/severities';
 import { SubjectsService } from '../services/subjectsService';
@@ -35,28 +29,24 @@ function UpdateSubject(props) {
     };
 
     return (
-        <Dialog open={true} onClose={closeModal}>
-            <DialogTitle>Update Subject</DialogTitle>
-            <DialogContent>
-                <TextField
-                    id="subject-name"
-                    label="Subject name"
-                    variant="filled"
-                    value={nameValue}
-                    onChange={(e) => setNameValue(e.target.value)}
-                    error={!nameValue}
-                    helperText={!nameValue ? 'Field is required' : ''}
-                />
-            </DialogContent>
-            <DialogActions>
-                <Button variant="contained" color="error" onClick={closeModal}>
-                    Cancel
-                </Button>
-                <Button variant="contained" disabled={!nameValue} onClick={handleSubmit}>
-                    Update
-                </Button>
-            </DialogActions>
-        </Dialog>
+        <CustomDialog
+            handleClose={closeModal}
+            handleConfirm={handleSubmit}
+            confirmText="Update"
+            cancelText="Cancel"
+            title="Update Subject"
+            disableSubmit={!nameValue}
+        >
+            <TextField
+                id="subject-name"
+                label="Subject name"
+                variant="filled"
+                value={nameValue}
+                onChange={(e) => setNameValue(e.target.value)}
+                error={!nameValue}
+                helperText={!nameValue ? 'Field is required' : ''}
+            />
+        </CustomDialog>
     );
 }
 
