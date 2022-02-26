@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import './LaboratoriesList.css';
 
@@ -9,31 +9,28 @@ import CreateLaboratory from './CreateLaboratory';
 import Laboratory from './Laboratory';
 import Loader from '../Loader';
 import { getUser } from '../../utils/getUser';
-import { LABORATORIES_URL } from '../../constants/fetch';
 import { setLaboratories } from '../../store/reducers/laboratories';
-import { setLaboratoriesLoading } from '../../store/reducers/loadings';
 import { userRoles } from '../../constants/userRoles';
+import { LaboratoriesService } from '../../services/laboratoriseService';
 
 function LaboratoriesList(props) {
     const { id, name } = props;
-    const loading = useSelector((state) => state.loadings.subjectsLoading);
     const laboratories = useSelector((state) => state.laboratories);
     const dispatch = useDispatch();
     const user = getUser();
 
-    useEffect(() => {
-        const getAllLaboratories = async () => {
-            dispatch(setLaboratoriesLoading(true));
-            const response = await fetch(`${LABORATORIES_URL}/${id}`);
-            const subjects = await response.json();
-            dispatch(setLaboratories(subjects));
-            dispatch(setLaboratoriesLoading(false));
-        };
+    const [isLoading, setIsLoading] = useState(false);
 
-        getAllLaboratories();
+    useEffect(() => {
+        setIsLoading(true);
+        LaboratoriesService.getLaboratories(id)
+            .then((subjects) => {
+                dispatch(setLaboratories(subjects));
+            })
+            .finally(() => setIsLoading(false));
     }, [id]);
 
-    return loading ? (
+    return isLoading ? (
         <Loader />
     ) : (
         <Box className="laboratories-list">
