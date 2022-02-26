@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import CreateSubject from './modals/CreateSubject';
 import CreateSubjectIcon from './CreateSubjectIcon';
+import Loader from './Loader';
 import Subject from './Subject';
 import { getUser } from '../utils/getUser';
 import { setSubjects } from '../store/reducers/subjects';
@@ -41,9 +42,9 @@ function SubjectsList() {
         getAllSubjects();
     }, []);
 
-    if (loading) return <Box sx={classes.root}>Loading</Box>;
-
-    return (
+    return loading ? (
+        <Loader />
+    ) : (
         <Box sx={classes.root}>
             {user.role !== userRoles.ROLE_STUDENT && (
                 <CreateSubjectIcon
