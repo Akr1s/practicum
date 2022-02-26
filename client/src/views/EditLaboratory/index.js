@@ -1,13 +1,15 @@
 import React, { useRef, useState } from 'react';
+
+import { Box, Button, MenuItem, Select, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import ReactEditor from '../../components/ReactEditor';
-import { LABORATORIES_URL } from '../../constants/fetch';
-import { updateLaboratory } from '../../store/reducers/laboratories';
 import { useNavigate, useLocation } from 'react-router-dom';
-import './EditLaboratory.css';
-import Box from '@mui/system/Box';
-import { Button, MenuItem, Select, TextField } from '@mui/material';
 import { useSnackbar } from 'notistack';
+
+import './EditLaboratory.css';
+
+import ReactEditor from '../../components/ReactEditor';
+import { LaboratoriesService } from '../../services/laboratoriseService';
+import { updateLaboratory } from '../../store/reducers/laboratories';
 
 function EditLaboratory() {
     const subjects = useSelector((state) => state.subjects);
@@ -29,22 +31,18 @@ function EditLaboratory() {
         e.preventDefault();
         const savedData = await editorRef.current.save();
 
-        const updateLaboratoryCall = async () => {
-            const response = await fetch(`${LABORATORIES_URL}/${laboratory.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name, data: savedData, lessonId: subjectId }),
-            });
-            const [laboratoryItem] = await response.json();
-            dispatch(updateLaboratory(laboratoryItem));
-            enqueueSnackbar(`${laboratoryItem.name} was updated!`, { variant: 'info' });
-        };
-
-        updateLaboratoryCall();
-        navigateToSubject();
+        LaboratoriesService.updateLaboratory(
+            { name, data: savedData, lessonId: subjectId },
+            laboratory.id,
+        )
+            .then(([laboratory]) => {
+                dispatch(updateLaboratory(laboratory));
+                enqueueSnackbar(`${laboratory.name} was updated!`, { variant: 'info' });
+                navigateToSubject();
+            })
+            .then(() => enqueueSnackbar('An error has occured, try again', { variant: 'info' }));
     };
+
     return (
         <Box component="section" className="page update-laboratory-page">
             <form>

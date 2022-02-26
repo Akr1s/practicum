@@ -1,17 +1,19 @@
-import { Card } from '@mui/material';
-import { Box } from '@mui/system';
 import React from 'react';
+
+import { Box } from '@mui/system';
+import { Card } from '@mui/material';
 import { IoPencil, IoTrash } from 'react-icons/io5';
-import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import { LABORATORIES_URL } from '../../constants/fetch';
-import { deleteLaboratory } from '../../store/reducers/laboratories';
-import { setLaboratory } from '../../store/reducers/navigation';
-import { replaceSpaces } from '../../utils/replaceSpaces';
 import { useSnackbar } from 'notistack';
-import { userRoles } from '../../constants/userRoles';
+
+import { deleteLaboratory } from '../../store/reducers/laboratories';
 import { getUser } from '../../utils/getUser';
+import { LaboratoriesService } from '../../services/laboratoriseService';
+import { replaceSpaces } from '../../utils/replaceSpaces';
+import { setLaboratory } from '../../store/reducers/navigation';
+import { userRoles } from '../../constants/userRoles';
 
 function Laboratory(props) {
     const { pathname } = useLocation();
@@ -21,13 +23,12 @@ function Laboratory(props) {
     const user = getUser();
 
     const deleteLaboratoryHandler = async () => {
-        try {
-            await fetch(`${LABORATORIES_URL}/${laboratory.id}`, { method: 'DELETE' });
-            dispatch(deleteLaboratory(laboratory.id));
-            enqueueSnackbar('The laboratory was deleted!', { variant: 'info' });
-        } catch (error) {
-            enqueueSnackbar('An error occured!', { variant: 'error' });
-        }
+        LaboratoriesService.deleteLaboratory(laboratory.id)
+            .then(() => {
+                dispatch(deleteLaboratory(laboratory.id));
+                enqueueSnackbar('The laboratory was deleted!', { variant: 'info' });
+            })
+            .catch(() => enqueueSnackbar('An error has occured, try again', { variant: 'info' }));
     };
 
     const setNavigationLaboratory = () => {

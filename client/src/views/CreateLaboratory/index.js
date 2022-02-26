@@ -8,6 +8,7 @@ import './CreateLaboratory.css';
 import Box from '@mui/system/Box';
 import { Button, MenuItem, Select, TextField } from '@mui/material';
 import { useSnackbar } from 'notistack';
+import { LaboratoriesService } from '../../services/laboratoriseService';
 
 function CreateLaboratory() {
     const subjects = useSelector((state) => state.subjects);
@@ -28,21 +29,13 @@ function CreateLaboratory() {
         e.preventDefault();
         const savedData = await editorRef.current.save();
 
-        const createLaboratoryCall = async () => {
-            const response = await fetch(LABORATORIES_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name, data: savedData, lessonId: subjectId }),
-            });
-            const [laboratoryItem] = await response.json();
-            dispatch(createLaboratory(laboratoryItem));
-            enqueueSnackbar(`${laboratoryItem.name} was created!`, { variant: 'success' });
-        };
-
-        createLaboratoryCall();
-        navigateToSubject();
+        LaboratoriesService.createLaboratory({ name, data: savedData, lessonId: subjectId })
+            .then(([laboratory]) => {
+                dispatch(createLaboratory(laboratory));
+                enqueueSnackbar(`${laboratory.name} was created!`, { variant: 'success' });
+                navigateToSubject();
+            })
+            .catch(() => enqueueSnackbar('An error has occured, try again', { variant: 'info' }));
     };
 
     return (
