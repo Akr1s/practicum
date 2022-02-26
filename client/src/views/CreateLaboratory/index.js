@@ -5,14 +5,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
-import './CreateLaboratory.css';
-
 import Box from '@mui/system/Box';
 import ReactEditor from '../../components/ReactEditor';
 import { appMessages } from '../../constants/appMessage';
 import { createLaboratory } from '../../store/reducers/laboratories';
 import { LaboratoriesService } from '../../services/laboratoriseService';
 import { Severities } from '../../constants/severities';
+
+const classes = {
+    root: { flexGrow: 1, padding: '20px' },
+    form: {
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        rowGap: '10px',
+    },
+    input: { padding: '5px', borderRadius: '5px', border: 'none', fontSize: '20px' },
+};
 
 function CreateLaboratory() {
     const subjects = useSelector((state) => state.subjects);
@@ -43,8 +54,8 @@ function CreateLaboratory() {
     };
 
     return (
-        <Box component="section" className="page create-laboratory-page">
-            <form>
+        <Box component="section" sx={classes.root}>
+            <form style={classes.form}>
                 <TextField
                     id="laboratory-name"
                     label="Laboratory name"
@@ -54,6 +65,7 @@ function CreateLaboratory() {
                     onChange={(e) => setName(e.target.value)}
                     error={!name}
                     helperText={!name ? 'Field is required' : ''}
+                    sx={classes.input}
                 />
                 <Select
                     id="subject_id"
