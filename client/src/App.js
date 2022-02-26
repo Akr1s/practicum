@@ -2,14 +2,13 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import './App.css';
 
-import Header from './layout/Header';
+import MainLayout from './layout';
 import { routes } from './route/routes';
 
 function App() {
     return (
-        <div className="app">
-            <BrowserRouter>
-                <Header />
+        <BrowserRouter>
+            <MainLayout>
                 <Routes>
                     {routes.map((route) => (
                         <Route
@@ -20,8 +19,8 @@ function App() {
                         />
                     ))}
                 </Routes>
-            </BrowserRouter>
-        </div>
+            </MainLayout>
+        </BrowserRouter>
     );
 }
 

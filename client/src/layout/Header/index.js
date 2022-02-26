@@ -6,11 +6,11 @@ import { IoMenu } from 'react-icons/io5';
 import { useNavigate } from 'react-router';
 import { useSnackbar } from 'notistack';
 
-import Sidebar from './Sidebar';
-import { appMessages } from '../constants/appMessage';
-import { AuthService } from '../services/authService';
-import { getUser } from '../utils/getUser';
-import { Severities } from '../constants/severities';
+import Sidebar from '../Sidebar';
+import { appMessages } from '../../constants/appMessage';
+import { AuthService } from '../../services/authService';
+import { getUser } from '../../utils/getUser';
+import { Severities } from '../../constants/severities';
 
 const classes = {
     root: {
@@ -51,15 +51,9 @@ function stringAvatar(name) {
     };
 }
 
-function Header() {
+function Header({ openSidebar }) {
     const { enqueueSnackbar } = useSnackbar();
     const navigate = useNavigate();
-
-    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-    const closeSidebar = () => {
-        setIsSidebarOpen(false);
-    };
 
     const user = getUser();
 
@@ -75,13 +69,10 @@ function Header() {
     };
 
     return (
-        <>
-            <Box component="header" sx={classes.root}>
-                <IoMenu onClick={() => setIsSidebarOpen(true)} style={classes.icon} />
-                <Avatar {...stringAvatar(user.username)} style={classes.avatar} onClick={logout} />
-            </Box>
-            <Sidebar open={isSidebarOpen} onClose={closeSidebar} />
-        </>
+        <Box component="header" sx={classes.root}>
+            <IoMenu onClick={openSidebar} style={classes.icon} />
+            <Avatar {...stringAvatar(user.username)} style={classes.avatar} onClick={logout} />
+        </Box>
     );
 }
 
