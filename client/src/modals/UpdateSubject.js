@@ -13,10 +13,10 @@ import { updateSubject } from '../store/reducers/subjects';
 function UpdateSubject(props) {
     const { subject, closeModal } = props;
     const { id, name } = subject;
+    const { enqueueSnackbar } = useSnackbar();
+    const dispatch = useDispatch();
 
     const [nameValue, setNameValue] = useState(name);
-    const dispatch = useDispatch();
-    const { enqueueSnackbar } = useSnackbar();
 
     const handleSubmit = (e) => {
         SubjectsService.updateSubject(nameValue, id)

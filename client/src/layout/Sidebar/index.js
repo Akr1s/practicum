@@ -18,6 +18,7 @@ const classes = {
         flexDirection: 'column',
         alignItems: 'center',
     },
+    divider: { borderTop: '1px solid #e3e3e3', margin: '12px 0 12px 0', width: '100%' },
 };
 
 function Sidebar(props) {
@@ -27,9 +28,7 @@ function Sidebar(props) {
         <Drawer anchor="left" open={open} onClose={onClose}>
             <Box sx={classes.root}>
                 <SchoolIcon sx={{ fontSize: '32px' }} />
-                <Divider
-                    sx={{ borderTop: '1px solid #e3e3e3', margin: '12px 0 12px 0', width: '100%' }}
-                />
+                <Divider sx={classes.divider} />
                 <SubjectsList />
             </Box>
         </Drawer>

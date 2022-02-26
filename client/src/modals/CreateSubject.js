@@ -12,24 +12,19 @@ import { SubjectsService } from '../services/subjectsService';
 
 export default function CreateSubject(props) {
     const { closeModal } = props;
+    const { enqueueSnackbar } = useSnackbar();
+    const dispatch = useDispatch();
 
     const [nameValue, setNameValue] = useState('');
-    const dispatch = useDispatch();
-    const { enqueueSnackbar } = useSnackbar();
 
-    const handleSubmit = (e) => {
-        const createSubjectCall = async () => {
-            SubjectsService.createSubject(nameValue)
-                .then(([subject]) => {
-                    dispatch(createSubject(subject));
-                    closeModal();
-                    enqueueSnackbar(`The subject ${subject.name} was created!`, Severities.SUCCESS);
-                })
-                .catch(() => enqueueSnackbar(appMessages.generalError, Severities.ERROR));
-        };
-
-        e.preventDefault();
-        createSubjectCall();
+    const handleSubmit = () => {
+        SubjectsService.createSubject(nameValue)
+            .then(([subject]) => {
+                dispatch(createSubject(subject));
+                closeModal();
+                enqueueSnackbar(`The subject ${subject.name} was created!`, Severities.SUCCESS);
+            })
+            .catch(() => enqueueSnackbar(appMessages.generalError, Severities.ERROR));
     };
 
     return (
