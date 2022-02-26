@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import { IoMenu } from 'react-icons/io5';
+import { useNavigate } from 'react-router';
 import { useSnackbar } from 'notistack';
 
 import Sidebar from './Sidebar';
@@ -10,7 +11,6 @@ import { appMessages } from '../constants/appMessage';
 import { AuthService } from '../services/authService';
 import { getUser } from '../utils/getUser';
 import { Severities } from '../constants/severities';
-import { useNavigate } from 'react-router';
 
 const classes = {
     root: {

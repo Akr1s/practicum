@@ -3,14 +3,14 @@ import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 
-import CreateSubject from './modals/CreateSubject';
+import CreateSubject from '../../components/modals/CreateSubject';
 import CreateSubjectIcon from './CreateSubjectIcon';
-import Loader from './Loader';
+import Loader from '../../components/Loader';
 import Subject from './Subject';
-import { getUser } from '../utils/getUser';
-import { setSubjects } from '../store/reducers/subjects';
-import { userRoles } from '../constants/userRoles';
-import { SubjectsService } from '../services/subjectsService';
+import { getUser } from '../../utils/getUser';
+import { setSubjects } from '../../store/reducers/subjects';
+import { userRoles } from '../../constants/userRoles';
+import { SubjectsService } from '../../services/subjectsService';
 
 const classes = {
     root: {
@@ -19,7 +19,7 @@ const classes = {
     },
 };
 
-function SubjectsList() {
+export default function SubjectsList() {
     const subjects = useSelector((state) => state.subjects);
     const activeSubject = useSelector((state) => state.navigation.subject);
     const dispatch = useDispatch();
@@ -63,5 +63,3 @@ function SubjectsList() {
         </Box>
     );
 }
-
-export default SubjectsList;

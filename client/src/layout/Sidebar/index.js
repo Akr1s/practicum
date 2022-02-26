@@ -5,7 +5,7 @@ import Divider from '@mui/material/Divider';
 import Drawer from '@mui/material/Drawer';
 import { IoSchool } from 'react-icons/io5';
 
-import SubjectsList from '../components/SubjectsList';
+import SubjectsList from './SubjectsList';
 
 const classes = {
     root: {

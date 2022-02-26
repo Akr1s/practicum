@@ -7,16 +7,16 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 
-import ConfirmModal from './modals/ConfirmModal';
-import UpdateSubject from './modals/UpdateSubject';
-import { appMessages } from '../constants/appMessage';
-import { deleteSubject } from '../store/reducers/subjects';
-import { getUser } from '../utils/getUser';
-import { replaceSpaces } from '../utils/replaceSpaces';
-import { setSubject } from '../store/reducers/navigation';
-import { Severities } from '../constants/severities';
-import { SubjectsService } from '../services/subjectsService';
-import { userRoles } from '../constants/userRoles';
+import ConfirmModal from '../../components/modals/ConfirmModal';
+import UpdateSubject from '../../components/modals/UpdateSubject';
+import { appMessages } from '../../constants/appMessage';
+import { deleteSubject } from '../../store/reducers/subjects';
+import { getUser } from '../../utils/getUser';
+import { replaceSpaces } from '../../utils/replaceSpaces';
+import { setSubject } from '../../store/reducers/navigation';
+import { Severities } from '../../constants/severities';
+import { SubjectsService } from '../../services/subjectsService';
+import { userRoles } from '../../constants/userRoles';
 
 const classes = {
     root: {
@@ -51,7 +51,7 @@ const classes = {
     },
 };
 
-function Subject(props) {
+export default function Subject(props) {
     const { subject, isActive } = props;
     const { name, id } = subject;
     const { enqueueSnackbar } = useSnackbar();
@@ -112,5 +112,3 @@ function Subject(props) {
         </Card>
     );
 }
-
-export default Subject;

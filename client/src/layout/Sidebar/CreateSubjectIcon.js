@@ -16,7 +16,7 @@ const classes = {
     icon: { cursor: 'pointer', '&:hover': { transform: 'scale(1.2)' } },
 };
 
-function CreateSubjectIcon(props) {
+export default function CreateSubjectIcon(props) {
     const { handleCreate } = props;
     return (
         <Card sx={classes.root} onClick={handleCreate}>
@@ -24,5 +24,3 @@ function CreateSubjectIcon(props) {
         </Card>
     );
 }
-
-export default CreateSubjectIcon;
