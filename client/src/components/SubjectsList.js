@@ -31,10 +31,12 @@ function SubjectsList() {
 
     useEffect(() => {
         setIsLoading(true);
-        SubjectsService.getSubjects().then((data) => {
-            setSubjects(data);
-            dispatch(setSubjects(data));
-        });
+        SubjectsService.getSubjects()
+            .then((data) => {
+                setSubjects(data);
+                dispatch(setSubjects(data));
+            })
+            .finally(() => setIsLoading(false));
     }, []);
 
     return isLoading ? (

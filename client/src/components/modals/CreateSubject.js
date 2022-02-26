@@ -8,9 +8,10 @@ import {
 } from '@mui/material';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { SUBJECTS_URL } from '../../constants/fetch';
-import { createSubject } from '../../store/reducers/subjects';
 import { useSnackbar } from 'notistack';
+
+import { createSubject } from '../../store/reducers/subjects';
+import { SubjectsService } from '../../services/subjectsService';
 
 function CreateSubject(props) {
     const { closeModal } = props;
@@ -21,17 +22,17 @@ function CreateSubject(props) {
 
     const handleSubmit = (e) => {
         const createSubjectCall = async () => {
-            const response = await fetch(SUBJECTS_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ name: nameValue }),
-            });
-            const [subject] = await response.json();
-            dispatch(createSubject(subject));
-            closeModal();
-            enqueueSnackbar(`The subject ${subject.name} was created!`, { variant: 'success' });
+            SubjectsService.createSubject(nameValue)
+                .then(([subject]) => {
+                    dispatch(createSubject(subject));
+                    closeModal();
+                    enqueueSnackbar(`The subject ${subject.name} was created!`, {
+                        variant: 'success',
+                    });
+                })
+                .catch(() =>
+                    enqueueSnackbar('An error has occured, try again', { variant: 'info' }),
+                );
         };
 
         e.preventDefault();

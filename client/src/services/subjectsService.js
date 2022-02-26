@@ -9,4 +9,7 @@ export class SubjectsService {
     static deleteSubject(id) {
         return axios.delete(`${SUBJECTS_URL}/${id}`);
     }
+    static createSubject(name) {
+        return axios.post(SUBJECTS_URL, { name }).then((response) => response.data);
+    }
 }
