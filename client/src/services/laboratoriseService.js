@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LABORATORIES_URL } from '../constants/fetch';
+import { LABORATORIES_URL } from '../constants/urls';
 
 export class LaboratoriesService {
     static getLaboratories(id) {

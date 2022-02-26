@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { SUBJECTS_URL } from '../constants/fetch';
+import { SUBJECTS_URL } from '../constants/urls';
 
 export class SubjectsService {
     static getSubjects() {

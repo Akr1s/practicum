@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { LOGIN_URL, LOGOUT_URL, REGISTRATION_URL } from '../constants/fetch';
+import { LOGIN_URL, LOGOUT_URL, REGISTRATION_URL } from '../constants/urls';
 
 export class AuthService {
     static logout() {

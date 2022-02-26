@@ -1,13 +1,15 @@
 import React, { useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import ReactEditor from '../../components/ReactEditor';
-import { LABORATORIES_URL } from '../../constants/fetch';
-import { createLaboratory } from '../../store/reducers/laboratories';
-import { useNavigate, useLocation } from 'react-router-dom';
-import './CreateLaboratory.css';
-import Box from '@mui/system/Box';
+
 import { Button, MenuItem, Select, TextField } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+
+import './CreateLaboratory.css';
+
+import Box from '@mui/system/Box';
+import ReactEditor from '../../components/ReactEditor';
+import { createLaboratory } from '../../store/reducers/laboratories';
 import { LaboratoriesService } from '../../services/laboratoriseService';
 
 function CreateLaboratory() {
