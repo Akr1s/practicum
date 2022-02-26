@@ -42,7 +42,7 @@ function EditLaboratory() {
                 enqueueSnackbar(`${laboratory.name} was updated!`, Severities.INFO);
                 navigateToSubject();
             })
-            .then(() => enqueueSnackbar(appMessages.generalError, Severities.ERROR));
+            .catch(() => enqueueSnackbar(appMessages.generalError, Severities.ERROR));
     };
 
     return (
