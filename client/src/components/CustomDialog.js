@@ -23,7 +23,7 @@ export default function CustomDialog({
                 <Button variant="contained" color="error" onClick={handleClose}>
                     {cancelText}
                 </Button>
-                <Button variant="contained" onClick={handleConfirm} disableSubmit={disableSubmit}>
+                <Button variant="contained" onClick={handleConfirm} disabled={disableSubmit}>
                     {confirmText}
                 </Button>
             </DialogActions>
