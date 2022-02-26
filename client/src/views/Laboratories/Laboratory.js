@@ -26,9 +26,6 @@ const classes = {
         '&:hover': {
             transform: 'scale(1.2)',
         },
-        '&:not(:last-of-type)': {
-            marginRight: '8px',
-        },
     },
     laboratory: {
         width: '120px',
@@ -75,7 +72,7 @@ export default function Laboratory(props) {
                 <Box sx={classes.icons}>
                     <Link to={`${pathname}/${replaceSpaces(laboratory.name)}/edit`}>
                         <EditIcon
-                            sx={classes.icon}
+                            sx={{ ...classes.icon, marginRight: '4px' }}
                             onClick={(e) => {
                                 setNavigationLaboratory();
                             }}

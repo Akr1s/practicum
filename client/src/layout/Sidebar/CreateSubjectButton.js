@@ -2,6 +2,8 @@ import React from 'react';
 
 import AddIcon from '@mui/icons-material/Add';
 import { Card } from '@mui/material';
+import { getUser } from '../../utils/getUser';
+import { userRoles } from '../../constants/userRoles';
 
 const classes = {
     root: {
@@ -16,11 +18,14 @@ const classes = {
     icon: { cursor: 'pointer', '&:hover': { transform: 'scale(1.2)' } },
 };
 
-export default function CreateSubjectIcon(props) {
-    const { handleCreate } = props;
+export default function CreateSubjectButton({ handleCreate }) {
+    const user = getUser();
+
     return (
-        <Card sx={classes.root} onClick={handleCreate}>
-            <AddIcon sx={classes.icon} />
-        </Card>
+        user.role !== userRoles.ROLE_STUDENT && (
+            <Card sx={classes.root} onClick={handleCreate}>
+                <AddIcon sx={classes.icon} />
+            </Card>
+        )
     );
 }

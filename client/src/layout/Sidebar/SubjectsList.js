@@ -4,12 +4,10 @@ import Box from '@mui/material/Box';
 import { useDispatch, useSelector } from 'react-redux';
 
 import CreateSubject from '../../modals/CreateSubject';
-import CreateSubjectIcon from './CreateSubjectIcon';
+import CreateSubjectButton from './CreateSubjectButton';
 import Loader from '../../components/Loader';
 import Subject from './Subject';
-import { getUser } from '../../utils/getUser';
 import { setSubjects } from '../../store/reducers/subjects';
-import { userRoles } from '../../constants/userRoles';
 import { SubjectsService } from '../../services/subjectsService';
 
 const classes = {
@@ -27,8 +25,6 @@ export default function SubjectsList() {
     const [isCreating, setIsCreating] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
-    const user = getUser();
-
     useEffect(() => {
         setIsLoading(true);
         SubjectsService.getSubjects()
@@ -43,13 +39,7 @@ export default function SubjectsList() {
         <Loader />
     ) : (
         <Box sx={classes.root}>
-            {user.role !== userRoles.ROLE_STUDENT && (
-                <CreateSubjectIcon
-                    handleCreate={(e) => {
-                        setIsCreating(true);
-                    }}
-                />
-            )}
+            <CreateSubjectButton handleCreate={() => setIsCreating(true)} />
             {subjects.map((subject) => {
                 return (
                     <Subject
