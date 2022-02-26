@@ -16,9 +16,15 @@ export default function CustomDialog({
     children,
 }) {
     return (
-        <Dialog open={true} onClose={handleClose}>
-            <DialogTitle>{title}</DialogTitle>
-            <DialogContent>{children}</DialogContent>
+        <Dialog open={true} onClose={handleClose} PaperProps={{ sx: { minWidth: '500px' } }}>
+            <DialogTitle sx={{ textAlign: 'center' }}>{title}</DialogTitle>
+            {!!children && (
+                <DialogContent
+                    sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+                >
+                    {children}
+                </DialogContent>
+            )}
             <DialogActions>
                 <Button variant="contained" color="error" onClick={handleClose}>
                     {cancelText}
