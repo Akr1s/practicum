@@ -10,7 +10,9 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 
+import { appMessages } from '../../constants/appMessage';
 import { createSubject } from '../../store/reducers/subjects';
+import { Severities } from '../../constants/severities';
 import { SubjectsService } from '../../services/subjectsService';
 
 function CreateSubject(props) {
@@ -26,13 +28,9 @@ function CreateSubject(props) {
                 .then(([subject]) => {
                     dispatch(createSubject(subject));
                     closeModal();
-                    enqueueSnackbar(`The subject ${subject.name} was created!`, {
-                        variant: 'success',
-                    });
+                    enqueueSnackbar(`The subject ${subject.name} was created!`, Severities.SUCCESS);
                 })
-                .catch(() =>
-                    enqueueSnackbar('An error has occured, try again', { variant: 'info' }),
-                );
+                .catch(() => enqueueSnackbar(appMessages.generalError, Severities.ERROR));
         };
 
         e.preventDefault();

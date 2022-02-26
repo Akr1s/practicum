@@ -9,12 +9,14 @@ import { useSnackbar } from 'notistack';
 
 import ConfirmModal from './modals/ConfirmModal';
 import UpdateSubject from './modals/UpdateSubject';
+import { appMessages } from '../constants/appMessage';
 import { deleteSubject } from '../store/reducers/subjects';
 import { getUser } from '../utils/getUser';
 import { replaceSpaces } from '../utils/replaceSpaces';
 import { setSubject } from '../store/reducers/navigation';
-import { userRoles } from '../constants/userRoles';
+import { Severities } from '../constants/severities';
 import { SubjectsService } from '../services/subjectsService';
+import { userRoles } from '../constants/userRoles';
 
 const classes = {
     root: {
@@ -65,9 +67,9 @@ function Subject(props) {
         SubjectsService.deleteSubject(id)
             .then(() => {
                 dispatch(deleteSubject(id));
-                enqueueSnackbar('The subject was deleted!', { variant: 'info' });
+                enqueueSnackbar('The subject was deleted!', Severities.INFO);
             })
-            .catch(() => enqueueSnackbar('An error has occured, try again', { variant: 'info' }));
+            .catch(() => enqueueSnackbar(appMessages.generalError, Severities.ERROR));
     };
 
     const setNavigationSubject = () => {

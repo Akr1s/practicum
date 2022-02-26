@@ -11,6 +11,8 @@ import {
 import { useDispatch } from 'react-redux';
 import { useSnackbar } from 'notistack';
 
+import { appMessages } from '../../constants/appMessage';
+import { Severities } from '../../constants/severities';
 import { SubjectsService } from '../../services/subjectsService';
 import { updateSubject } from '../../store/reducers/subjects';
 
@@ -27,9 +29,9 @@ function UpdateSubject(props) {
             .then(([subject]) => {
                 dispatch(updateSubject(subject));
                 closeModal();
-                enqueueSnackbar(`The subject ${subject.name} was updated!`, { variant: 'info' });
+                enqueueSnackbar(`The subject ${subject.name} was updated!`, Severities.INFO);
             })
-            .catch(() => enqueueSnackbar('An error has occured, try again', { variant: 'info' }));
+            .catch(() => enqueueSnackbar(appMessages.generalError, Severities.ERROR));
     };
 
     return (

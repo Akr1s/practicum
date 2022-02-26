@@ -9,8 +9,10 @@ import './CreateLaboratory.css';
 
 import Box from '@mui/system/Box';
 import ReactEditor from '../../components/ReactEditor';
+import { appMessages } from '../../constants/appMessage';
 import { createLaboratory } from '../../store/reducers/laboratories';
 import { LaboratoriesService } from '../../services/laboratoriseService';
+import { Severities } from '../../constants/severities';
 
 function CreateLaboratory() {
     const subjects = useSelector((state) => state.subjects);
@@ -34,10 +36,10 @@ function CreateLaboratory() {
         LaboratoriesService.createLaboratory({ name, data: savedData, lessonId: subjectId })
             .then(([laboratory]) => {
                 dispatch(createLaboratory(laboratory));
-                enqueueSnackbar(`${laboratory.name} was created!`, { variant: 'success' });
                 navigateToSubject();
+                enqueueSnackbar(`${laboratory.name} was created!`, Severities.SUCCESS);
             })
-            .catch(() => enqueueSnackbar('An error has occured, try again', { variant: 'info' }));
+            .catch(() => enqueueSnackbar(appMessages.generalError, Severities.ERROR));
     };
 
     return (

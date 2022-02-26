@@ -8,11 +8,13 @@ import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
+import { appMessages } from '../../constants/appMessage';
 import { deleteLaboratory } from '../../store/reducers/laboratories';
 import { getUser } from '../../utils/getUser';
 import { LaboratoriesService } from '../../services/laboratoriseService';
 import { replaceSpaces } from '../../utils/replaceSpaces';
 import { setLaboratory } from '../../store/reducers/navigation';
+import { Severities } from '../../constants/severities';
 import { userRoles } from '../../constants/userRoles';
 
 function Laboratory(props) {
@@ -26,9 +28,9 @@ function Laboratory(props) {
         LaboratoriesService.deleteLaboratory(laboratory.id)
             .then(() => {
                 dispatch(deleteLaboratory(laboratory.id));
-                enqueueSnackbar('The laboratory was deleted!', { variant: 'info' });
+                enqueueSnackbar('The laboratory was deleted!', Severities.INFO);
             })
-            .catch(() => enqueueSnackbar('An error has occured, try again', { variant: 'info' }));
+            .catch(() => enqueueSnackbar(appMessages.generalError, Severities.ERROR));
     };
 
     const setNavigationLaboratory = () => {

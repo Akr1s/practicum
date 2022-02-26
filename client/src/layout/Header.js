@@ -6,9 +6,11 @@ import { IoMenu } from 'react-icons/io5';
 import { useSnackbar } from 'notistack';
 
 import Sidebar from './Sidebar';
-import { getUser } from '../utils/getUser';
-import { useNavigate } from 'react-router';
+import { appMessages } from '../constants/appMessage';
 import { AuthService } from '../services/authService';
+import { getUser } from '../utils/getUser';
+import { Severities } from '../constants/severities';
+import { useNavigate } from 'react-router';
 
 const classes = {
     root: {
@@ -69,7 +71,7 @@ function Header() {
                 localStorage.removeItem('user');
                 navigate('/signin');
             })
-            .catch(() => enqueueSnackbar('An error has occured, try again', { variant: 'info' }));
+            .catch(() => enqueueSnackbar(appMessages.generalError, Severities.ERROR));
     };
 
     return (

@@ -8,7 +8,9 @@ import { useSnackbar } from 'notistack';
 import './EditLaboratory.css';
 
 import ReactEditor from '../../components/ReactEditor';
+import { appMessages } from '../../constants/appMessage';
 import { LaboratoriesService } from '../../services/laboratoriseService';
+import { Severities } from '../../constants/severities';
 import { updateLaboratory } from '../../store/reducers/laboratories';
 
 function EditLaboratory() {
@@ -37,10 +39,10 @@ function EditLaboratory() {
         )
             .then(([laboratory]) => {
                 dispatch(updateLaboratory(laboratory));
-                enqueueSnackbar(`${laboratory.name} was updated!`, { variant: 'info' });
+                enqueueSnackbar(`${laboratory.name} was updated!`, Severities.INFO);
                 navigateToSubject();
             })
-            .then(() => enqueueSnackbar('An error has occured, try again', { variant: 'info' }));
+            .then(() => enqueueSnackbar(appMessages.generalError, Severities.ERROR));
     };
 
     return (

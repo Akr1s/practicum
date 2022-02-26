@@ -14,7 +14,9 @@ import { IoLockClosedOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router';
 import { useSnackbar } from 'notistack';
 
+import { appMessages } from '../../constants/appMessage';
 import { AuthService } from '../../services/authService';
+import { Severities } from '../../constants/severities';
 
 function Copyright(props) {
     return (
@@ -46,7 +48,7 @@ export default function SignIn() {
                 localStorage.setItem('user', JSON.stringify(userData));
                 navigate('/');
             })
-            .catch(() => enqueueSnackbar('An error has occured, try again', { variant: 'info' }));
+            .catch(() => enqueueSnackbar(appMessages.generalError, Severities.ERROR));
     };
 
     return (
