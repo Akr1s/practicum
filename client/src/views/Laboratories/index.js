@@ -10,7 +10,7 @@ function Laborataries() {
     const subject = useSelector((state) => state.navigation.subject);
     if (!subject) return <Navigate to="/" />;
     return (
-        <Box component="section" className="page">
+        <Box component="section" sx={{ flexGrow: 1, padding: '20px' }}>
             <LaboratoriesList id={subject.id} name={subject.name} />
         </Box>
     );

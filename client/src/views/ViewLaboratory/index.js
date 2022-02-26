@@ -1,13 +1,11 @@
 import React from 'react';
 
-import './ViewLaboratory.css';
-
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-import QuestionsList from '../../components/QuestionsList';
+import QuestionsList from './QuestionsList';
 import { componentSelector } from './componentSelector';
 
 function ViewLaboratory() {
@@ -15,8 +13,8 @@ function ViewLaboratory() {
 
     if (!laboratory) return <Navigate to="/" />;
     return (
-        <Box component="section" className="page">
-            <Typography variant="h2" className="view-page-title">
+        <Box component="section" sx={{ flexGrow: 1, padding: '20px' }}>
+            <Typography variant="h2" sx={{ textAlign: 'center', marginTop: 0 }}>
                 {laboratory.name}
             </Typography>
 
