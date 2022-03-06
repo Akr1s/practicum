@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 
 import { Box, Button, MenuItem, Select, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
 import Editor from '../../components/Editor';
 import { appMessages } from '../../constants/appMessage';
 import { LaboratoriesService } from '../../services/laboratoriseService';
+import { replaceSpaces } from '../../utils/replaceSpaces';
 import { Severities } from '../../constants/severities';
 import { updateLaboratory } from '../../store/reducers/laboratories';
 
@@ -31,20 +32,15 @@ const classes = {
 
 function EditLaboratory() {
     const subjects = useSelector((state) => state.subjects);
+    const selectedSubject = useSelector((state) => state.navigation.subject);
     const laboratory = useSelector((state) => state.navigation.laboratory);
     const dispatch = useDispatch();
-    const location = useLocation();
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
 
     const [name, setName] = useState(laboratory?.name);
     const [subjectId, setSubjectId] = useState(laboratory?.lesson_id);
     const [data, setData] = useState(laboratory?.data || '');
-
-    const navigateToSubject = () => {
-        const subjectName = location.pathname.split('/')[1];
-        navigate(`/${subjectName}`);
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -53,7 +49,7 @@ function EditLaboratory() {
             .then(([laboratory]) => {
                 dispatch(updateLaboratory(laboratory));
                 enqueueSnackbar(`${laboratory.name} was updated!`, Severities.INFO);
-                navigateToSubject();
+                navigate(`/${replaceSpaces(selectedSubject.name)}`);
             })
             .catch(() => enqueueSnackbar(appMessages.generalError, Severities.ERROR));
     };

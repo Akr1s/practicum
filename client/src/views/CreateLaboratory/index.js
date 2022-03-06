@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Button, MenuItem, Select, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
 import Box from '@mui/system/Box';
@@ -10,6 +10,7 @@ import Editor from '../../components/Editor';
 import { appMessages } from '../../constants/appMessage';
 import { createLaboratory } from '../../store/reducers/laboratories';
 import { LaboratoriesService } from '../../services/laboratoriseService';
+import { replaceSpaces } from '../../utils/replaceSpaces';
 import { Severities } from '../../constants/severities';
 
 const classes = {
@@ -28,8 +29,8 @@ const classes = {
 
 function CreateLaboratory() {
     const subjects = useSelector((state) => state.subjects);
+    const selectedSubject = useSelector((state) => state.navigation.subject);
     const dispatch = useDispatch();
-    const location = useLocation();
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
 
@@ -37,18 +38,13 @@ function CreateLaboratory() {
     const [subjectId, setSubjectId] = useState(subjects[0]?.id);
     const [data, setData] = useState('');
 
-    const navigateToSubject = () => {
-        const subjectName = location.pathname.split('/')[1];
-        navigate(`/${subjectName}`);
-    };
-
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         LaboratoriesService.createLaboratory({ name, data, lessonId: subjectId })
             .then(([laboratory]) => {
                 dispatch(createLaboratory(laboratory));
-                navigateToSubject();
+                navigate(`/${replaceSpaces(selectedSubject.name)}`);
                 enqueueSnackbar(`${laboratory.name} was created!`, Severities.SUCCESS);
             })
             .catch(() => enqueueSnackbar(appMessages.generalError, Severities.ERROR));
