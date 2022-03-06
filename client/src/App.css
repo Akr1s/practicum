@@ -35,3 +35,27 @@ a {
 code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
+
+#toolbar,
+.ql-container {
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: -8px 8px 13px #ededed, 8px -8px 13px #ffffff;
+    margin: 10px 0;
+}
+
+.ql-container {
+    min-height: 300px;
+}
+
+.ql-view-container {
+    padding: 10px;
+    margin: 10px 0px;
+    border-radius: 10px;
+    background: #ffffff;
+    box-shadow: -8px 8px 13px #ededed, 8px -8px 13px #ffffff;
+}
+
+.view-laboratory #toolbar {
+    display: none;
+}

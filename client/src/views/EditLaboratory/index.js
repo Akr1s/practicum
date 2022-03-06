@@ -1,11 +1,11 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Box, Button, MenuItem, Select, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
-import ReactEditor from '../../components/ReactEditor';
+import Editor from '../../components/Editor';
 import { appMessages } from '../../constants/appMessage';
 import { LaboratoriesService } from '../../services/laboratoriseService';
 import { Severities } from '../../constants/severities';
@@ -32,13 +32,14 @@ const classes = {
 function EditLaboratory() {
     const subjects = useSelector((state) => state.subjects);
     const laboratory = useSelector((state) => state.navigation.laboratory);
-    const [name, setName] = useState(laboratory?.name);
-    const [subjectId, setSubjectId] = useState(laboratory?.lesson_id);
-    const editorRef = useRef();
     const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
+
+    const [name, setName] = useState(laboratory?.name);
+    const [subjectId, setSubjectId] = useState(laboratory?.lesson_id);
+    const [data, setData] = useState(laboratory?.data || '');
 
     const navigateToSubject = () => {
         const subjectName = location.pathname.split('/')[1];
@@ -47,12 +48,8 @@ function EditLaboratory() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const savedData = await editorRef.current.save();
 
-        LaboratoriesService.updateLaboratory(
-            { name, data: savedData, lessonId: subjectId },
-            laboratory.id,
-        )
+        LaboratoriesService.updateLaboratory({ name, data, lessonId: subjectId }, laboratory.id)
             .then(([laboratory]) => {
                 dispatch(updateLaboratory(laboratory));
                 enqueueSnackbar(`${laboratory.name} was updated!`, Severities.INFO);
@@ -94,7 +91,7 @@ function EditLaboratory() {
                     Update laboratory
                 </Button>
             </form>
-            <ReactEditor editorRef={editorRef} defaultData={laboratory?.data} />
+            <Editor data={data} handleDataChange={setData} />
         </Box>
     );
 }

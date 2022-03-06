@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 
 import { Button, MenuItem, Select, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,7 +6,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
 import Box from '@mui/system/Box';
-import ReactEditor from '../../components/ReactEditor';
+import Editor from '../../components/Editor';
 import { appMessages } from '../../constants/appMessage';
 import { createLaboratory } from '../../store/reducers/laboratories';
 import { LaboratoriesService } from '../../services/laboratoriseService';
@@ -21,19 +21,21 @@ const classes = {
         justifyContent: 'center',
         flexDirection: 'column',
         rowGap: '10px',
+        marginBottom: '20px',
     },
     input: { padding: '5px', borderRadius: '5px', border: 'none', fontSize: '20px' },
 };
 
 function CreateLaboratory() {
     const subjects = useSelector((state) => state.subjects);
-    const [name, setName] = useState('');
-    const [subjectId, setSubjectId] = useState(subjects[0]?.id);
-    const editorRef = useRef();
     const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
     const { enqueueSnackbar } = useSnackbar();
+
+    const [name, setName] = useState('');
+    const [subjectId, setSubjectId] = useState(subjects[0]?.id);
+    const [data, setData] = useState('');
 
     const navigateToSubject = () => {
         const subjectName = location.pathname.split('/')[1];
@@ -42,9 +44,8 @@ function CreateLaboratory() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const savedData = await editorRef.current.save();
 
-        LaboratoriesService.createLaboratory({ name, data: savedData, lessonId: subjectId })
+        LaboratoriesService.createLaboratory({ name, data, lessonId: subjectId })
             .then(([laboratory]) => {
                 dispatch(createLaboratory(laboratory));
                 navigateToSubject();
@@ -86,7 +87,7 @@ function CreateLaboratory() {
                     Create laboratory
                 </Button>
             </form>
-            <ReactEditor editorRef={editorRef} defaultData={[]} />
+            <Editor data={data} handleDataChange={setData} />
         </Box>
     );
 }
