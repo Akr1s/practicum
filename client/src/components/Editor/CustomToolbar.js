@@ -19,9 +19,9 @@ const renderSingle = (formatData) => {
 };
 const CustomToolbar = () => (
     <div id="toolbar">
-        {formats.map((classes) => {
+        {formats.map((classes, index) => {
             return (
-                <span className="ql-formats">
+                <span className="ql-formats" key={index}>
                     {classes.map((formatData) => {
                         return formatData.options
                             ? renderOptions(formatData)

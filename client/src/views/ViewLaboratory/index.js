@@ -14,7 +14,10 @@ function ViewLaboratory() {
     if (!laboratory) return <Navigate to="/" />;
     return (
         <Box component="section" sx={{ flexGrow: 1, padding: '20px' }} className="view-laboratory">
-            <Typography variant="h2" sx={{ textAlign: 'center', marginTop: 0 }}>
+            <Typography
+                variant="h2"
+                sx={{ textAlign: 'center', marginTop: 0, marginBottom: '20px' }}
+            >
                 {laboratory.name}
             </Typography>
 

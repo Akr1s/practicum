@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 import { Box, Button, MenuItem, Select, TextField } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 
 import Editor from '../../components/Editor';
@@ -19,8 +19,8 @@ const classes = {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'column',
-        rowGap: '10px',
+        flexWrap: 'wrap',
+        gap: '10px',
     },
     input: {
         padding: '5px',
@@ -53,6 +53,8 @@ function EditLaboratory() {
             })
             .catch(() => enqueueSnackbar(appMessages.generalError, Severities.ERROR));
     };
+
+    if (!laboratory) return <Navigate to="/" />;
 
     return (
         <Box component="section" sx={classes.root}>
