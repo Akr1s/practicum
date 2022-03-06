@@ -1,12 +1,10 @@
 import React from 'react';
 
 import ReactQuill from 'react-quill';
-// import ImageResize  from 'quill-image-resize-module';
 
 import 'react-quill/dist/quill.snow.css';
 import CustomToolbar from './CustomToolbar';
 
-// Quill.register('modules/ImageResize',ImageResize);
 export default function Editor({ data, handleDataChange, readOnly }) {
     const modules = {
         toolbar: {
