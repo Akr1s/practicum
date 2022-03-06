@@ -1,15 +1,10 @@
-import React, { useState } from 'react';
-
-import Header from './Header';
-import Sidebar from './Sidebar';
+import React from 'react';
+import NavBar from './NavBar';
 
 export default function MainLayout({ children }) {
-    const [openSidebar, setOpenSidebar] = useState(false);
-
     return (
         <>
-            <Header openSidebar={() => setOpenSidebar(true)} />
-            <Sidebar open={openSidebar} onClose={() => setOpenSidebar(false)} />
+            <NavBar />
             {children}
         </>
     );
