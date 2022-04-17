@@ -24,6 +24,7 @@
     "@emotion/styled": "^11.6.0",
     "@mui/icons-material": "^5.4.2",
     "@mui/material": "^5.2.1",
+    "@mui/x-data-grid": "^5.6.1",
     "@natterstefan/react-editor-js": "^0.3.1",
     "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/jest-dom": "^5.14.1",

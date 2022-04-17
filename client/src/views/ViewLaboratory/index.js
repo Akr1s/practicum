@@ -5,8 +5,8 @@ import Typography from '@mui/material/Typography';
 import { Navigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+import Calculator from './Calculator';
 import Editor from '../../components/Editor';
-import QuestionsList from './QuestionsList';
 
 function ViewLaboratory() {
     const laboratory = useSelector((state) => state.navigation.laboratory);
@@ -22,8 +22,8 @@ function ViewLaboratory() {
             </Typography>
 
             <Editor data={laboratory?.data} handleDataChange={() => null} readOnly={true} />
-
-            <QuestionsList list={[]} />
+            <Box sx={{ marginBottom: '20px' }} />
+            <Calculator />
         </Box>
     );
 }
