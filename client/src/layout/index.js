@@ -1,10 +1,11 @@
 import React from 'react';
-import NavBar from './NavBar';
+
+import Header from './Header';
 
 export default function MainLayout({ children }) {
     return (
         <>
-            <NavBar />
+            <Header />
             {children}
         </>
     );

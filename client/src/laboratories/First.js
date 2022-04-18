@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import { Box, Button, TextField, Typography } from '@mui/material';
 import Editor from '../components/Editor';
-import Calculator from '../views/ViewLaboratory/Calculator';
+import Calculator from '../components/Calculator';
 import Loader from '../components/Loader';
 import { LabsService } from '../services/labsService';
 

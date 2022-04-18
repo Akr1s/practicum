@@ -40,7 +40,7 @@ function Home() {
     return (
         <Box component="section" sx={classes.root}>
             {laboratories.map((item) => (
-                <Link to={`/${item.id}`} style={classes.link}>
+                <Link to={`/${item.id}`} style={classes.link} key={item.id}>
                     <Card sx={classes.laboratory}>{item.name}</Card>
                 </Link>
             ))}

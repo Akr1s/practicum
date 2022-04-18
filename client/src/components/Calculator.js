@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 
+import AddIcon from '@mui/icons-material/Add';
 import Box from '@mui/material/Box';
-import TextField from '@mui/material/Input';
-import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -11,11 +13,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import CustomDialog from '../../components/CustomDialog';
-import AddIcon from '@mui/icons-material/Add';
-import Button from '@mui/material/Button';
+import TextField from '@mui/material/Input';
+import Typography from '@mui/material/Typography';
+
+import CustomDialog from './CustomDialog';
 
 export default function Calculator() {
     const [page, setPage] = useState(0);
