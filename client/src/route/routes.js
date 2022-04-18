@@ -1,4 +1,4 @@
-import Home from '../views/Home';
+import Home from '../components/Home';
 import First from '../laboratories/First';
 
 export const routes = [

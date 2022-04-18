@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, TextField } from '@mui/material';
 import Editor from '../components/Editor';
 import Calculator from '../components/Calculator';
 import Loader from '../components/Loader';
@@ -34,7 +34,7 @@ export default function First() {
         e.preventDefault();
 
         LabsService.updateLaboratory(
-            { name: laboratory.name, data: laboratory.data, lessonId: laboratory.lesson_id },
+            { name: laboratory.name, data: laboratory.data },
             laboratory.id,
         )
             .then(([laboratory]) => {

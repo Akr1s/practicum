@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Card from '@mui/material/Card';
 
-import { LabsService } from '../../services/labsService';
+import { LabsService } from '../services/labsService';
 import { Link } from 'react-router-dom';
 
 const classes = {
