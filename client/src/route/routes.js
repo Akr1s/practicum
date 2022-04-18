@@ -6,6 +6,7 @@ import Login from '../views/Login';
 import ProtectedRoute from './ProtectedRoute';
 import Register from '../views/Register';
 import ViewLaboratory from '../views/ViewLaboratory';
+import First from '../laboratories/First';
 
 export const routes = [
     { path: '/', element: <ProtectedRoute component={Home} />, exact: true },
@@ -27,4 +28,5 @@ export const routes = [
     },
     { path: '/signin', element: <Login />, exact: true },
     { path: '/signup', element: <Register />, exact: true },
+    { path: '/1', element: <First />, exact: true },
 ];

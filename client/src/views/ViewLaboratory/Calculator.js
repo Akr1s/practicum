@@ -24,6 +24,7 @@ export default function Calculator() {
     const [newMeasurement, setNewMeasurement] = useState(0);
     const [showEditModal, setShowEditModal] = useState(false);
     const [editRow, setEditRow] = useState(null);
+    const [resultStr, setResultStr] = useState('');
 
     const handleDelete = (row) => {
         const newRows = rows.filter((item) => item.id !== row.id);
@@ -33,10 +34,10 @@ export default function Calculator() {
     const [rows, setRows] = useState([]);
 
     const columns = [
-        { id: 'measurement', label: 'Name', minWidth: 100 },
+        { id: 'measurement', label: 'Результат вимірювання', minWidth: 100 },
         {
             id: 'delete',
-            label: 'Delete',
+            label: 'Видалити',
             minWidth: 50,
             renderCell: (data) => {
                 return <DeleteIcon onClick={() => handleDelete(data)} sx={{ cursor: 'pointer' }} />;
@@ -44,7 +45,7 @@ export default function Calculator() {
         },
         {
             id: 'edit',
-            label: 'Edit',
+            label: 'Редагувати',
             minWidth: 50,
             renderCell: (data) => {
                 return (
@@ -71,20 +72,31 @@ export default function Calculator() {
 
     const handleCalculate = () => {
         const average = rows.reduce((acc, item) => acc + item.measurement, 0) / rows.length;
-        const differences = rows.map((item) => Math.abs(item.measurement - average));
+        const differences = rows
+            .map((item) => Math.abs(item.measurement - average))
+            .filter(Boolean);
         const averageDifference =
             differences.reduce((acc, item) => acc + item, 0) / differences.length;
         const relatedError = averageDifference / average;
-        alert(`Absolute error: ${averageDifference}, Related error: ${relatedError}`);
+        setResultStr(
+            `Абсолютна похибка: ${averageDifference.toFixed(
+                2,
+            )}; Відносна похибка: ${relatedError.toFixed(2)}%`,
+        );
     };
 
     return (
         <Box
             className="ql-view-container"
-            sx={{ border: '1px solid rgb(204,204,204)', padding: '20px', position: 'relative' }}
+            sx={{
+                border: '1px solid rgb(204,204,204)',
+                padding: '20px',
+                position: 'relative',
+                marginTop: '20px',
+            }}
         >
             <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>
-                Calculator
+                Калькулятор
             </Typography>
 
             <form>
@@ -151,7 +163,7 @@ export default function Calculator() {
                 <Button
                     sx={{ position: 'absolute', top: '52px', left: '620px', zIndex: 100 }}
                     onClick={() => setShowAddModal(true)}
-                    title="Add a measurement"
+                    title="Додати вимірювання"
                     variant="contained"
                 >
                     <AddIcon />
@@ -162,9 +174,10 @@ export default function Calculator() {
                     variant="contained"
                     disabled={!rows.length}
                 >
-                    Calculate
+                    Розрахувати
                 </Button>
             </form>
+            {resultStr && <Typography sx={{ marginTop: '20px' }}>{resultStr}</Typography>}
 
             {showAddModal && (
                 <CustomDialog
@@ -179,14 +192,14 @@ export default function Calculator() {
                         ]);
                         setNewMeasurement(0);
                     }}
-                    confirmText="Create"
-                    cancelText="Cancel"
-                    title="Create new measurement"
+                    confirmText="Додати"
+                    cancelText="Відмінити"
+                    title="Додати нове вимірювання"
                     disableSubmit={!newMeasurement}
                 >
                     <TextField
                         id="subject-name"
-                        label="Measurement"
+                        label="Вимірювання"
                         variant="filled"
                         value={newMeasurement}
                         onChange={(e) => setNewMeasurement(e.target.value)}
@@ -212,14 +225,14 @@ export default function Calculator() {
                         setEditRow(null);
                         setShowEditModal(false);
                     }}
-                    confirmText="Update"
-                    cancelText="Cancel"
-                    title="Update measurement"
+                    confirmText="Обновити"
+                    cancelText="Відмінити"
+                    title="Обновити вимірювання"
                     disableSubmit={!editRow.measurement}
                 >
                     <TextField
                         id="subject-name"
-                        label="Measurement"
+                        label="Вимірювання"
                         variant="filled"
                         value={editRow.measurement}
                         onChange={(e) =>

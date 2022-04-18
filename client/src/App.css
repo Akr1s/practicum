@@ -59,3 +59,9 @@ code {
 .view-laboratory #toolbar {
     display: none;
 }
+
+#toolbar {
+    position: sticky;
+    z-index: 100;
+    top: 10px;
+}

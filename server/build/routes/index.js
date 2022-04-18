@@ -5,8 +5,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var subjects_routes_1 = __importDefault(require("./subjects.routes"));
 var laboratories_routes_1 = __importDefault(require("./laboratories.routes"));
+var labs_router_1 = __importDefault(require("./labs.router"));
 var express_1 = require("express");
 var router = (0, express_1.Router)();
 router.use('/subjects/', subjects_routes_1.default);
 router.use('/laboratories/', laboratories_routes_1.default);
+router.use('/labs/', labs_router_1.default);
 exports.default = router;

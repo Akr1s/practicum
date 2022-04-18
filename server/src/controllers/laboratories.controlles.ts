@@ -15,6 +15,17 @@ const getAllLaboratories = (req: Request, res: Response) => {
     getDataFromDatabase(options, res);
 };
 
+const getSingleLaboratory = (req: Request, res: Response) => {
+    const { id } = req.params;
+    const options = {
+        query: `SELECT * FROM LABORATORIES WHERE ID='${id}'`,
+        errorCode: STATUS_CODES.ERROR,
+        single: true,
+    };
+
+    getDataFromDatabase(options, res);
+};
+
 const createLaboratory = (req: Request, res: Response) => {
     let { name, data, lessonId } = req.body;
     const id = uuidv4();
@@ -32,9 +43,10 @@ const updateLaboratory = (req: Request, res: Response) => {
     const { id } = req.params;
     let { name, data, lessonId } = req.body;
     const options = {
-        query: `UPDATE LABORATORIES SET NAME='${name}', LESSON_ID='${lessonId}', DATA='${JSON.stringify(
-            data,
-        )}' WHERE ID='${id}' RETURNING *`,
+        query: {
+            text: `UPDATE LABORATORIES SET NAME = $1, DATA = $2 WHERE ID = $3 RETURNING *`,
+            values: [name, JSON.stringify(data), id],
+        },
         successStatusCode: STATUS_CODES.OK,
         errorStatusCode: STATUS_CODES.ERROR,
     };
@@ -51,4 +63,10 @@ const deleteLaboratory = (req: Request, res: Response) => {
     handleDatabaseQuery(options, res);
 };
 
-export default { getAllLaboratories, createLaboratory, updateLaboratory, deleteLaboratory };
+export default {
+    getAllLaboratories,
+    createLaboratory,
+    updateLaboratory,
+    deleteLaboratory,
+    getSingleLaboratory,
+};

@@ -15,7 +15,7 @@ const getDataFromDatabase = async (options: GetOptionsInterface, res: Response) 
     }
 };
 
-const handleDatabaseQuery = async (options: OptionsInterface, res: Response) => {
+const handleDatabaseQuery = async (options: any, res: Response) => {
     const { query, successStatusCode, errorStatusCode } = options;
     try {
         const { rows } = await databaseQuery(query);

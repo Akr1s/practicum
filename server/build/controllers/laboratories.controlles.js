@@ -16,6 +16,15 @@ var getAllLaboratories = function (req, res) {
     };
     (0, common_1.getDataFromDatabase)(options, res);
 };
+var getSingleLaboratory = function (req, res) {
+    var id = req.params.id;
+    var options = {
+        query: "SELECT * FROM LABORATORIES WHERE ID='" + id + "'",
+        errorCode: statusCodes_1.STATUS_CODES.ERROR,
+        single: true,
+    };
+    (0, common_1.getDataFromDatabase)(options, res);
+};
 var createLaboratory = function (req, res) {
     var _a = req.body, name = _a.name, data = _a.data, lessonId = _a.lessonId;
     var id = (0, uuid_1.v4)();
@@ -30,7 +39,10 @@ var updateLaboratory = function (req, res) {
     var id = req.params.id;
     var _a = req.body, name = _a.name, data = _a.data, lessonId = _a.lessonId;
     var options = {
-        query: "UPDATE LABORATORIES SET NAME='" + name + "', LESSON_ID='" + lessonId + "', DATA='" + JSON.stringify(data) + "' WHERE ID='" + id + "' RETURNING *",
+        query: {
+            text: "UPDATE LABORATORIES SET NAME = $1, DATA = $2 WHERE ID = $3 RETURNING *",
+            values: [name, JSON.stringify(data), id],
+        },
         successStatusCode: statusCodes_1.STATUS_CODES.OK,
         errorStatusCode: statusCodes_1.STATUS_CODES.ERROR,
     };
@@ -45,4 +57,10 @@ var deleteLaboratory = function (req, res) {
     };
     (0, common_1.handleDatabaseQuery)(options, res);
 };
-exports.default = { getAllLaboratories: getAllLaboratories, createLaboratory: createLaboratory, updateLaboratory: updateLaboratory, deleteLaboratory: deleteLaboratory };
+exports.default = {
+    getAllLaboratories: getAllLaboratories,
+    createLaboratory: createLaboratory,
+    updateLaboratory: updateLaboratory,
+    deleteLaboratory: deleteLaboratory,
+    getSingleLaboratory: getSingleLaboratory,
+};
