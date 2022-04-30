@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 
 import { Box, Button, TextField } from '@mui/material';
-import Editor from '../components/Editor';
-import Calculator from '../components/Calculator';
-import Loader from '../components/Loader';
-import { LabsService } from '../services/labsService';
 
-const id = '1';
+import Calculator from './Calculator';
+import CalculatorWrapper from '../../components/CalculatorWrapper';
+import Editor from '../../components/Editor';
+import Loader from '../../components/Loader';
+import { LabsService } from '../../services/labsService';
+
+const id = '4';
 
 const classes = {
     form: {
@@ -25,7 +27,7 @@ const classes = {
     },
 };
 
-export default function First() {
+export default function Fourth() {
     const [laboratory, setLaboratory] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [isEditing, setIsEditing] = useState(false);
@@ -100,7 +102,9 @@ export default function First() {
                         handleDataChange={(data) => setLaboratory((item) => ({ ...item, data }))}
                         readOnly={!isEditing}
                     />
-                    <Calculator />
+                    <CalculatorWrapper>
+                        <Calculator />
+                    </CalculatorWrapper>
                 </>
             )}
         </Box>

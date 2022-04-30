@@ -32,6 +32,7 @@
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.24.0",
     "jwt-decode": "^3.1.2",
+    "katex": "^0.15.3",
     "notistack": "^2.0.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",

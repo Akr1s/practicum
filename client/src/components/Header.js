@@ -2,6 +2,7 @@ import React from 'react';
 
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import { Link } from 'react-router-dom';
 
 const classes = {
     root: {
@@ -14,7 +15,9 @@ const classes = {
 function Header() {
     return (
         <Box component="header" sx={classes.root}>
-            <Typography sx={classes.text}>Лабораторний практикум</Typography>
+            <Link to="/">
+                <Typography sx={classes.text}>Лабораторний практикум</Typography>
+            </Link>
         </Box>
     );
 }

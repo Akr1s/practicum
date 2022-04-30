@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
 import AddIcon from '@mui/icons-material/Add';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -16,7 +15,7 @@ import TableRow from '@mui/material/TableRow';
 import TextField from '@mui/material/Input';
 import Typography from '@mui/material/Typography';
 
-import CustomDialog from './CustomDialog';
+import CustomDialog from '../../components/CustomDialog';
 
 export default function Calculator() {
     const [page, setPage] = useState(0);
@@ -87,19 +86,7 @@ export default function Calculator() {
     };
 
     return (
-        <Box
-            className="ql-view-container"
-            sx={{
-                border: '1px solid rgb(204,204,204)',
-                padding: '20px',
-                position: 'relative',
-                marginTop: '20px',
-            }}
-        >
-            <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>
-                Калькулятор
-            </Typography>
-
+        <>
             <form>
                 <Paper sx={{ width: '100%', overflow: 'hidden' }}>
                     <TableContainer sx={{ maxHeight: 440, width: '600px' }}>
@@ -245,6 +232,6 @@ export default function Calculator() {
                     />
                 </CustomDialog>
             )}
-        </Box>
+        </>
     );
 }

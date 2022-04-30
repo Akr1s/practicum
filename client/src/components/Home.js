@@ -13,7 +13,7 @@ const classes = {
         fontSize: '20px',
         display: 'grid',
         gap: '10px',
-        gridTemplateColumns: 'repeat(auto-fit, minmax(150px, 1fr))',
+        gridTemplateColumns: 'repeat(auto-fit, minmax(500px, 1fr))',
     },
     laboratory: {
         minHeight: '150px',
@@ -35,7 +35,7 @@ function Home() {
 
     useEffect(() => {
         LabsService.getLaboratories().then((data) => setLaboratories(data));
-    });
+    }, []);
 
     return (
         <Box component="section" sx={classes.root}>
