@@ -20,10 +20,9 @@ const steps = [
     'Результати',
 ];
 
-const stepComponents = [<InputRes />, <Misses />, <Average />, <ResMiss />, <Results />];
-
 export default function StepperWrapper() {
     const [activeStep, setActiveStep] = useState(0);
+    const [data, setData] = useState([]);
 
     const handleNext = () => {
         setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -48,7 +47,13 @@ export default function StepperWrapper() {
                     );
                 })}
             </Stepper>
-            <Box sx={{ margin: '20px 0' }}>{stepComponents[activeStep]}</Box>
+            <Box sx={{ margin: '20px 0' }}>
+                {activeStep === 0 && <InputRes data={data} setData={setData} />}
+                {activeStep === 1 && <Misses data={data} setData={setData} />}
+                {activeStep === 2 && <Average data={data} setData={setData} />}
+                {activeStep === 3 && <ResMiss data={data} setData={setData} />}
+                {activeStep === 4 && <Results data={data} setData={setData} />}
+            </Box>
             {activeStep === steps.length ? (
                 <React.Fragment>
                     <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
