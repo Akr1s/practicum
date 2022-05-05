@@ -15,8 +15,10 @@ export default function CalculatorWrapper({ children }) {
                 marginTop: '20px',
             }}
         >
-            <Typography sx={{ textAlign: 'center', textTransform: 'uppercase' }}>
-                Калькулятор
+            <Typography
+                sx={{ textAlign: 'center', textTransform: 'uppercase', marginBottom: '20px' }}
+            >
+                Метрологічне забезпечення якості вимірювань
             </Typography>
             {children}
         </Box>

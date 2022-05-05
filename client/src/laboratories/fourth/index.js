@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 
 import { Box, Button, TextField } from '@mui/material';
 
-import Calculator from './Calculator';
 import CalculatorWrapper from '../../components/CalculatorWrapper';
 import Editor from '../../components/Editor';
 import Loader from '../../components/Loader';
 import { LabsService } from '../../services/labsService';
+import StepperWrapper from './Stepper';
 
 const id = '4';
 
@@ -103,7 +103,7 @@ export default function Fourth() {
                         readOnly={!isEditing}
                     />
                     <CalculatorWrapper>
-                        <Calculator />
+                        <StepperWrapper />
                     </CalculatorWrapper>
                 </>
             )}
